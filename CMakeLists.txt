@@ -3,4 +3,13 @@ project(Proyecto)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(Proyecto main.cpp)
+add_executable(Proyecto main.cpp
+
+        Territorio.cpp
+        Territorio.h
+        Jugador.cpp
+        Jugador.h
+        Mapa.cpp
+        Mapa.h
+        Consola.cpp
+        Consola.h)
