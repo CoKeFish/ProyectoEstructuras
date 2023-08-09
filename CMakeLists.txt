@@ -13,3 +13,4 @@ add_executable(Proyecto main.cpp
         Mapa.h
         Consola.cpp
         Consola.h)
+

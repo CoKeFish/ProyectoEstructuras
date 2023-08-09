@@ -9,6 +9,11 @@
 void Consola::inicializar() {
     cout << "(Inicialización satisfactoria) El juego se ha inicializado correctamente.\n";
     // Aquí puedes agregar el código de inicialización
+
+
+
+
+
 }
 
 void Consola::mostrarAyuda() {
@@ -21,14 +26,13 @@ void Consola::mostrarAyuda() {
 void Consola::mostrarAyuda(const string &comando) {
     auto it = comandos.find(comando);
     if (it != comandos.end()) {
-        wcout << L"Información para el comando '";
-        cout << comando << "':\n";
-        wcout << L" - Argumentos válidos: ";
+        cout << "Información para el comando '" << comando << "':\n";
+        cout << " - Argumentos válidos: ";
         for (const auto &numArgs: it->second.argumentosValidos) {
             cout << numArgs << " ";
         }
         cout << "\n";
-        wcout << L"Descripción para el comando: \n";
+        cout << " - Descripción para el comando: \n";
         cout << it->second.descripcion << endl;
     } else {
         cout << "El comando '" << comando
@@ -127,10 +131,9 @@ void Consola::iniciar() {
     string entrada;
 
     while (true) {
-        cout << "--------------------------------------------------------"
-                "\n"
-                "\n$ ";
+        cout << "$ ";
         getline(cin, entrada);
+        system("cls");
 
         istringstream stream(entrada);
         string comando;
@@ -150,7 +153,7 @@ void Consola::iniciar() {
                 std::cout << "Número incorrecto de argumentos para el comando " << comando << ".\n";
             }
         } else {
-            std::cout << "11Comando no reconocido. Escribe 'ayuda' para ver los comandos disponibles.\n";
+            std::cout << "Comando no reconocido. Escribe 'ayuda' para ver los comandos disponibles.\n";
         }
 
         if (comando == "salir") break;
