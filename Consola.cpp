@@ -5,6 +5,30 @@
 
 #include "Consola.h"
 
+std::string riskLogo = "\033[1m"
+                       ".-.................................             .:........-.                           :-............-                  \n"
+                       ".-                                  ..          :.        ::                           --            -                  \n"
+                       ".-                .....               .:        :.        ::                           ::            -                  \n"
+                       ".-...        -...:     ...              :       ::........-.                           -:..          -                  \n"
+                       " -::-:        :            ...  .       .:      .-:::::::::.                           .::::         -                  \n"
+                       "    ::         -        ....  .. ....    -   ::...........::       ..................::   ::         -  -.............:.\n"
+                       "    ::          :....    :  ......  -    =   =             :    .:.                   :   .:         - .-             .:\n"
+                       "    ::           :=. ....         .     .:   =             :   .:                     :   ..         - .-             .:\n"
+                       "    ::            .-.                   -    -             :   :.        :::::       .:   ..         - .:             .:\n"
+                       "    :.        -....-.--.-              -.    ::.:          :   :.       .:   :-:::::::-   ..         :  -:.        :...:\n"
+                       "    :.        .:-       :....        :-         :          :   :         .........        ..          ....       .-     \n"
+                       "    .        ...         :  -        ..         :          :   .:                  ...    ..                    .:      \n"
+                       "    .      .:.         =.= .-         ..        :          :    .:.                   :   ..                     ..     \n"
+                       "    ..    .:=::         +==:           ..       :          .       ........            :  ..                       :    \n"
+                       " ....      -----.      .:.:             ....  ..:          .... .........    :         :   .         .  :           :   \n"
+                       " :           ... .:     :..                 .:                ::         .....         -:..           .: :            .:\n"
+                       " :                -  : := ..                .:                .:                       :               .  :            :\n"
+                       " :                 - =-:= .:.               .:                .:                      :.               :   :           :\n"
+                       " :               .-==-. - --=-.             .:                ::                       .               :    :          :";
+
+
+
+
 void Consola::inicializar() {
     std::cout << "(Inicialización satisfactoria) El juego se ha inicializado correctamente.\n";
     // Aquí puedes agregar el código de inicialización
@@ -20,7 +44,6 @@ void Consola::inicializar() {
 
     while (true) {
         system("cls"); // Limpiar consola
-
         for (int i = 0; i < numOptions; ++i) {
             if (i == currentOption) {
                 std::cout << "> " << options[i] << " <" << std::endl; // Marcamos la opción seleccionada
@@ -76,6 +99,8 @@ void Consola::mostrarAyuda(const std::string &comando) {
 
 
 Consola::Consola() {
+
+    mostrarInstrucciones = true;
 
 
     comandos["ayuda"] = {[this](const std::vector<std::string> &args) {
@@ -161,11 +186,76 @@ Consola::Consola() {
 }
 
 
+void cambiarTamanoBufferYVentana(short anchoBuffer, short altoBuffer, short anchoVentana, short altoVentana) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    // Ajustamos el tamaño del buffer primero
+    COORD newSize;
+    newSize.X = anchoBuffer;
+    newSize.Y = altoBuffer;
+    SetConsoleScreenBufferSize(hConsole, newSize);
+
+    // Ahora, ajustamos el tamaño de la ventana
+    SMALL_RECT windowSize;
+    windowSize.Left = 0;
+    windowSize.Top = 0;
+    windowSize.Right = (short)(anchoVentana - 1);  // -1 porque es basado en 0
+    windowSize.Bottom = (short)(altoVentana - 1);  // -1 porque es basado en 0
+    SetConsoleWindowInfo(hConsole, TRUE, &windowSize);
+}
+
+
+/// Definir códigos de escape ANSI
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BOLD    "\033[1m"
+#define BOLD_OFF "\033[22m"
+#define BLACK       "\033[30m"
+#define RED         "\033[31m"
+#define GREEN       "\033[32m"
+#define YELLOW      "\033[33m"
+#define BLUE        "\033[34m"
+#define MAGENTA     "\033[35m"
+#define CYAN        "\033[36m"
+#define WHITE       "\033[37m"
+#define DEFAULT     "\033[39m"
+
+
+void mostrarInstruccionesConsola()
+{
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                              " << BOLD << "BIENVENIDO AL JUEGO RISK" << RESET << "                                                " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << "     INSTRUCCIONES:                                                                                                   " << RESET << BOLD << "|" << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                                                                                                      " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << MAGENTA << "     1. " << RESET << "Utiliza el comando '" << BOLD << GREEN << "inicializar" << RESET << "' para comenzar un nuevo juego.                                                " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << MAGENTA << "     2. " << RESET << "Usa el comando '" << BOLD << GREEN << "ayuda" << RESET << "' para obtener una lista de comandos.                                                    " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << MAGENTA << "     3. " << RESET << "Si necesitas detalles sobre un comando específico, escribe '" << BOLD << GREEN << "ayuda <comando>" << RESET << "'.                                 " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << MAGENTA << "     4. " << RESET << "¡Diviértete y conquista el mundo!                                                                             " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                                                                                                      " << BOLD << "|" << RESET << std::endl;
+}
+
+
+void separadorTextoConsola()
+{
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << BOLD_OFF << RESET << std::endl;
+}
+
 void Consola::iniciar() {
     std::string entrada;
+    cambiarTamanoBufferYVentana(160,1, 120, 35);
 
     while (true) {
-        std::cout << "$ ";
+        std::cout << riskLogo;
+        if(mostrarInstrucciones)
+        {
+            mostrarInstruccionesConsola();
+            mostrarInstrucciones = false;
+        }
+        separadorTextoConsola();
+        std::cout << "\n$ ";
         getline(std::cin, entrada);
         system("cls");
 

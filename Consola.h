@@ -53,6 +53,9 @@ private:
     /// Mapea los nombres de los comandos a su información correspondiente.
     std::map<std::string, ComandoInfo> comandos;
 
+    /// indica si deben mostrarse instruciones si se considera adecuado
+    bool mostrarInstrucciones;
+
     /**
      * @brief Función para inicializar el juego.
      *
