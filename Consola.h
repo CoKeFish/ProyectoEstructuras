@@ -11,8 +11,12 @@
 #include <functional>
 #include <string>
 #include <set>
+#include <sstream>
+#define byte win_byte
+#include <windows.h>
+#undef byte
 
-using namespace std;
+
 
 /**
  * @struct ComandoInfo
@@ -24,15 +28,15 @@ using namespace std;
  */
 struct ComandoInfo {
     /// Función que se ejecutará cuando se invoque el comando.
-    function<void(const vector<string>&)> funcion;
+    std::function<void(const std::vector<std::string>&)> funcion;
 
 
     /// Conjunto de tamaños de argumentos válidos para el comando.
-    set<size_t> argumentosValidos;
+    std::set<size_t> argumentosValidos;
 
 
     /// Descripción textual del comando para informar al usuario.
-    string descripcion;
+    std::string descripcion;
 };
 
 /**
@@ -47,7 +51,7 @@ class Consola {
 private:
 
     /// Mapea los nombres de los comandos a su información correspondiente.
-    map<string, ComandoInfo> comandos;
+    std::map<std::string, ComandoInfo> comandos;
 
     /**
      * @brief Función para inicializar el juego.
@@ -71,7 +75,7 @@ private:
      *
      * @param comando El nombre del comando para el que se desea obtener ayuda.
      */
-    void mostrarAyuda(const string& comando);
+    void mostrarAyuda(const std::string& comando);
 
 public:
 

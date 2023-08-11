@@ -1,6 +1,5 @@
-#include <iostream>
+
 #include "Territorio.h"
-#include "Jugador.h"
 #include "Consola.h"
 
 //using namespace std;

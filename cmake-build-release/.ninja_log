@@ -1,0 +1,8 @@
+# ninja log v5
+565	2007	7132611575627984	CMakeFiles/Proyecto.dir/Mapa.cpp.obj	8b7c771b0762d80c
+112	1534	7132611570333172	CMakeFiles/Proyecto.dir/Territorio.cpp.obj	dd3fa3baf87275ae
+3	1576	7132611570943720	CMakeFiles/Proyecto.dir/main.cpp.obj	c87702ffd8756ded
+224	1665	7132611571944636	CMakeFiles/Proyecto.dir/Jugador.cpp.obj	d8bc50bbd6328b5
+431	2479	7132611580512419	CMakeFiles/Proyecto.dir/Consola.cpp.obj	8ad204157faf8263
+5	934	7132611743829421	build.ninja	23e45f6407084a95
+2479	2971	7132611584626167	Proyecto.exe	fc70c88392320100

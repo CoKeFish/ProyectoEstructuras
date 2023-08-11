@@ -10,8 +10,6 @@
 #include <string>
 #include "Jugador.h"
 
-using namespace std;
-
 /**
  * @brief Enumeración de los continentes disponibles en el juego.
  */
@@ -34,11 +32,11 @@ class Jugador;
 class Territorio {
 
 private:
-    string nombre;                ///< Nombre del territorio.
+    std::string nombre;                ///< Nombre del territorio.
     Continente continente;       ///< Continente al que pertenece el territorio.
     Jugador* jugador;            ///< Jugador actual que posee el territorio.
     int numEjercitos;            ///< Número de ejércitos presentes en el territorio.
-    vector<Territorio*> adyacentes; ///< Lista de territorios adyacentes.
+    std::vector<Territorio*> adyacentes; ///< Lista de territorios adyacentes.
 
 
 public:
@@ -48,7 +46,7 @@ public:
      * @param n Nombre del territorio.
      * @param continente Continente al que pertenece el territorio.
      */
-    explicit Territorio(string n, Continente continente);
+    explicit Territorio(std::string n, Continente continente);
 
     /**
      * @brief Agrega un territorio adyacente al actual.
@@ -60,7 +58,7 @@ public:
      * @brief Obtiene los territorios adyacentes al actual.
      * @return Vector de territorios adyacentes.
      */
-    vector<Territorio*> obtenerAdyacentes();
+    std::vector<Territorio*> obtenerAdyacentes();
 
     /**
      * @brief Obtiene el continente del territorio.

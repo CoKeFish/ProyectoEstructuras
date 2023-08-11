@@ -2,40 +2,74 @@
 // Created by rrtc2 on 07/08/2023.
 //
 
-#include <sstream>
+
 #include "Consola.h"
 
-
 void Consola::inicializar() {
-    cout << "(Inicialización satisfactoria) El juego se ha inicializado correctamente.\n";
+    std::cout << "(Inicialización satisfactoria) El juego se ha inicializado correctamente.\n";
     // Aquí puedes agregar el código de inicialización
 
 
+    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+    INPUT_RECORD irInput;
+    DWORD dwEventsRead;
+
+    const int numOptions = 3;
+    std::string options[numOptions] = {"Opcion 1", "Opcion 2", "Opcion 3"};
+    int currentOption = 0;
+
+    while (true) {
+        system("cls"); // Limpiar consola
+
+        for (int i = 0; i < numOptions; ++i) {
+            if (i == currentOption) {
+                std::cout << "> " << options[i] << " <" << std::endl; // Marcamos la opción seleccionada
+            } else {
+                std::cout << "  " << options[i] << std::endl;
+            }
+        }
+
+        ReadConsoleInput(hInput, &irInput, 1, &dwEventsRead);
+
+        if (irInput.EventType == KEY_EVENT && irInput.Event.KeyEvent.bKeyDown) {
+            switch (irInput.Event.KeyEvent.wVirtualKeyCode) {
+                case VK_UP:
+                    currentOption = (currentOption - 1 + numOptions) % numOptions;
+                    break;
+                case VK_DOWN:
+                    currentOption = (currentOption + 1) % numOptions;
+                    break;
+                case VK_RETURN:
+                    std::cout << "Seleccionaste: " << options[currentOption] << std::endl;
+                    return ;
+            }
+        }
+    }
 
 
 
 }
 
 void Consola::mostrarAyuda() {
-    cout << "Comandos disponibles:\n";
+    std::cout << "Comandos disponibles:\n";
     for (const auto &[comando, info]: comandos) {
-        cout << " - " << comando << "\n";
+        std::cout << " - " << comando << "\n";
     }
 }
 
-void Consola::mostrarAyuda(const string &comando) {
+void Consola::mostrarAyuda(const std::string &comando) {
     auto it = comandos.find(comando);
     if (it != comandos.end()) {
-        cout << "Información para el comando '" << comando << "':\n";
-        cout << " - Argumentos válidos: ";
+        std::cout << "Información para el comando '" << comando << "':\n";
+        std::cout << " - Argumentos válidos: ";
         for (const auto &numArgs: it->second.argumentosValidos) {
-            cout << numArgs << " ";
+            std::cout << numArgs << " ";
         }
-        cout << "\n";
-        cout << " - Descripción para el comando: \n";
-        cout << it->second.descripcion << endl;
+        std::cout << "\n";
+        std::cout << " - Descripción para el comando: \n";
+        std::cout << it->second.descripcion << std::endl;
     } else {
-        cout << "El comando '" << comando
+        std::cout << "El comando '" << comando
                   << "' no es reconocido. Escribe 'ayuda' para ver una lista de comandos.\n";
     }
 }
@@ -44,7 +78,7 @@ void Consola::mostrarAyuda(const string &comando) {
 Consola::Consola() {
 
 
-    comandos["ayuda"] = {[this](const vector<string> &args) {
+    comandos["ayuda"] = {[this](const std::vector<std::string> &args) {
         if (!args.empty())
             this->mostrarAyuda(args[0]);
         else
@@ -55,9 +89,9 @@ Consola::Consola() {
 
 
     comandos["inicializar"] = {
-            [this](const vector<string> &args) {
+            [this](const std::vector<std::string> &args) {
                 if (!args.empty())
-                    cout << "Comando no implementado: inicializar" << endl;
+                    std::cout << "Comando no implementado: inicializar" << std::endl;
                 else
                     this->inicializar();
 
@@ -128,19 +162,19 @@ Consola::Consola() {
 
 
 void Consola::iniciar() {
-    string entrada;
+    std::string entrada;
 
     while (true) {
-        cout << "$ ";
-        getline(cin, entrada);
+        std::cout << "$ ";
+        getline(std::cin, entrada);
         system("cls");
 
-        istringstream stream(entrada);
-        string comando;
-        vector<string> argumentos;
+        std::istringstream stream(entrada);
+        std::string comando;
+        std::vector<std::string> argumentos;
 
         stream >> comando;
-        string arg;
+        std::string arg;
         while (stream >> arg) {
             argumentos.push_back(arg);
         }
