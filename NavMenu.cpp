@@ -52,7 +52,7 @@ std::string NavMenu::getSelection()
         if (irInput.EventType == KEY_EVENT && irInput.Event.KeyEvent.bKeyDown) {
             switch (irInput.Event.KeyEvent.wVirtualKeyCode) {
                 case VK_UP:
-                    currentOption = (currentOption - 1 + this->currentMenu->size()) % this->menu.size();
+                    currentOption = (currentOption - 1 + this->currentMenu->size()) % this->currentMenu->size();
                     this->currentItem = &(*this->currentMenu)[currentOption];
                     break;
                 case VK_DOWN:

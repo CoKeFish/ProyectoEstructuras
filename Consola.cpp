@@ -7,6 +7,24 @@
 #include "NavMenu.h"
 #include "gameMaster.h"
 #include <limits>
+
+/// Definir códigos de escape ANSI
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BOLD    "\033[1m"
+#define BOLD_OFF "\033[22m"
+#define BLACK       "\033[30m"
+#define RED         "\033[31m"
+#define GREEN       "\033[32m"
+#define YELLOW      "\033[33m"
+#define BLUE        "\033[34m"
+#define MAGENTA     "\033[35m"
+#define CYAN        "\033[36m"
+#define WHITE       "\033[37m"
+#define DEFAULT     "\033[39m"
+
 std::string riskLogo = "\033[1m"
                        ".-.................................             .:........-.                           :-............-                  \n"
                        ".-                                  ..          :.        ::                           --            -                  \n"
@@ -51,6 +69,85 @@ void Consola::inicializar() {
         MenuItem("Morado"),
         MenuItem("Gris")
     });
+
+    // Menús para los territorios de cada continente
+    std::vector<MenuItem> americaNorte = {
+            MenuItem("Alaska"),
+            MenuItem("Territorio del Noroeste"),
+            MenuItem("Groenlandia"),
+            MenuItem("América Central"),
+            MenuItem("México"),
+            MenuItem("Estados del Este"),
+            MenuItem("Estados del Oeste"),
+            MenuItem("Canadá Oriental"),
+            MenuItem("Canadá Occidental")
+    };
+
+    std::vector<MenuItem> americaSur = {
+            MenuItem("Venezuela"),
+            MenuItem("Perú"),
+            MenuItem("Brasil"),
+            MenuItem("Argentina")
+    };
+
+    std::vector<MenuItem> europa = {
+            MenuItem("Islandia"),
+            MenuItem("Escandinavia"),
+            MenuItem("Rusia"),
+            MenuItem("Ucrania"),
+            MenuItem("Europa del Norte"),
+            MenuItem("Europa del Oeste"),
+            MenuItem("Europa del Sur")
+    };
+
+    std::vector<MenuItem> africa = {
+            MenuItem("África del Norte"),
+            MenuItem("Egipto"),
+            MenuItem("Congo"),
+            MenuItem("África del Este"),
+            MenuItem("África del Sur"),
+            MenuItem("Madagascar")
+    };
+
+    std::vector<MenuItem> asia = {
+            MenuItem("Ural"),
+            MenuItem("Siberia"),
+            MenuItem("Yakutia"),
+            MenuItem("Kamchatka"),
+            MenuItem("Irkutsk"),
+            MenuItem("Mongolia"),
+            MenuItem("Japón"),
+            MenuItem("Afganistán"),
+            MenuItem("Oriente Medio"),
+            MenuItem("India"),
+            MenuItem("Siam"),
+            MenuItem("China")
+    };
+
+    std::vector<MenuItem> australia = {
+            MenuItem("Indonesia"),
+            MenuItem("Nueva Guinea"),
+            MenuItem("Australia Occidental"),
+            MenuItem("Australia Oriental")
+    };
+
+    // Menú principal para los continentes, que incluye sus respectivos territorios
+    NavMenu menuRisk = NavMenu({
+                                       MenuItem("América del Norte", americaNorte),
+                                       MenuItem("América del Sur", americaSur),
+                                       MenuItem("Europa", europa),
+                                       MenuItem("África", africa),
+                                       MenuItem("Asia", asia),
+                                       MenuItem("Australia", {
+                                               MenuItem("Indonesia"),
+                                               MenuItem("Nueva Guinea"),
+                                               MenuItem("Australia Occidental"),
+                                               MenuItem("Australia Oriental")
+                                       })
+                               });
+
+    std::cout << menuRisk.getSelection();
+    system("pause");
 
     std::string nJugadoresText = MenuJugadores.getSelection();
     int nJugadores = 0;
@@ -216,22 +313,6 @@ void cambiarTamanoBufferYVentana(short anchoBuffer, short altoBuffer, short anch
 }
 
 
-/// Definir códigos de escape ANSI
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BOLD    "\033[1m"
-#define BOLD_OFF "\033[22m"
-#define BLACK       "\033[30m"
-#define RED         "\033[31m"
-#define GREEN       "\033[32m"
-#define YELLOW      "\033[33m"
-#define BLUE        "\033[34m"
-#define MAGENTA     "\033[35m"
-#define CYAN        "\033[36m"
-#define WHITE       "\033[37m"
-#define DEFAULT     "\033[39m"
 
 
 void mostrarInstruccionesConsola()
