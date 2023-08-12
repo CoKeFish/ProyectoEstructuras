@@ -12,5 +12,8 @@ add_executable(Proyecto main.cpp
         Mapa.cpp
         Mapa.h
         Consola.cpp
-        Consola.h)
+        Consola.h
+        NavMenu.cpp
+        NavMenu.h
+        NavMenu.h)
 

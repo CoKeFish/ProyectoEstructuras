@@ -4,6 +4,7 @@
 
 
 #include "Consola.h"
+#include "NavMenu.h"
 
 std::string riskLogo = "\033[1m"
                        ".-.................................             .:........-.                           :-............-                  \n"
@@ -31,44 +32,49 @@ std::string riskLogo = "\033[1m"
 
 void Consola::inicializar() {
     std::cout << "(Inicialización satisfactoria) El juego se ha inicializado correctamente.\n";
-    // Aquí puedes agregar el código de inicialización
 
+    std::cout << "Indique el numero de jugadores";
 
-    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
-    INPUT_RECORD irInput;
-    DWORD dwEventsRead;
+    NavMenu MenuJugadores = NavMenu({
+                                     MenuItem("3 jugadores"),
+                                     MenuItem("4 jugadores"),
+                                     MenuItem("5 jugadores"),
+                                     MenuItem("6 jugadores")
+                             });
 
-    const int numOptions = 3;
-    std::string options[numOptions] = {"Opcion 1", "Opcion 2", "Opcion 3"};
-    int currentOption = 0;
+    std::string nJugadoresText = MenuJugadores.getSelection();
+    int nJugadores = 0;
 
-    while (true) {
-        system("cls"); // Limpiar consola
-        for (int i = 0; i < numOptions; ++i) {
-            if (i == currentOption) {
-                std::cout << "> " << options[i] << " <" << std::endl; // Marcamos la opción seleccionada
-            } else {
-                std::cout << "  " << options[i] << std::endl;
-            }
-        }
-
-        ReadConsoleInput(hInput, &irInput, 1, &dwEventsRead);
-
-        if (irInput.EventType == KEY_EVENT && irInput.Event.KeyEvent.bKeyDown) {
-            switch (irInput.Event.KeyEvent.wVirtualKeyCode) {
-                case VK_UP:
-                    currentOption = (currentOption - 1 + numOptions) % numOptions;
-                    break;
-                case VK_DOWN:
-                    currentOption = (currentOption + 1) % numOptions;
-                    break;
-                case VK_RETURN:
-                    std::cout << "Seleccionaste: " << options[currentOption] << std::endl;
-                    return ;
-            }
-        }
+    if(nJugadoresText == "3 jugadores")
+    {
+        nJugadores = 3;
+    }
+    else if(nJugadoresText == "4 jugadores")
+    {
+        nJugadores = 4;
+    }
+    else if(nJugadoresText == "5 jugadores")
+    {
+        nJugadores = 5;
+    }
+    else if(nJugadoresText == "6 jugadores")
+    {
+        nJugadores = 6;
     }
 
+    std::string ale;
+    for (int i = 0; i < nJugadores; ++i) {
+        std::cout << "Ingresa el nombre del " << i << " jugador\n";
+        std::cin >> ale;
+    }
+
+    NavMenu myMenu = NavMenu({
+                               MenuItem("Opcion 1"),
+                               MenuItem("Opcion 2", {MenuItem("Subopcion 2.1", {MenuItem("Subopcion 2.1.1"), MenuItem("Subopcion 2.1.2"), MenuItem("Subopcion 2.1.3")}), MenuItem("Subopcion 2.2"), MenuItem("Subopcion 2.3")}),
+                               MenuItem("Opcion 3")
+                       });
+
+    std::cout << myMenu.getSelection();
 
 
 }
