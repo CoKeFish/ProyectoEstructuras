@@ -246,18 +246,24 @@ void separadorTextoConsola()
 void Consola::iniciar() {
     std::string entrada;
     cambiarTamanoBufferYVentana(160,1, 120, 35);
+    std::cout << riskLogo;
+    separadorTextoConsola();
+
 
     while (true) {
-        std::cout << riskLogo;
+
         if(mostrarInstrucciones)
         {
             mostrarInstruccionesConsola();
             mostrarInstrucciones = false;
+            separadorTextoConsola();
         }
-        separadorTextoConsola();
         std::cout << "\n$ ";
         getline(std::cin, entrada);
         system("cls");
+        std::cout << riskLogo;
+        separadorTextoConsola();
+
 
         std::istringstream stream(entrada);
         std::string comando;
@@ -277,7 +283,8 @@ void Consola::iniciar() {
                 std::cout << "Número incorrecto de argumentos para el comando " << comando << ".\n";
             }
         } else {
-            std::cout << "Comando no reconocido. Escribe 'ayuda' para ver los comandos disponibles.\n";
+            std::cout << BOLD << RED << "\tComando no reconocido. \n" << RESET;
+            mostrarInstrucciones = true;
         }
 
         if (comando == "salir") break;
