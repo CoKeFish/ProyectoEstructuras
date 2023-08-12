@@ -6,7 +6,7 @@
 #include "Consola.h"
 #include "NavMenu.h"
 #include "gameMaster.h"
-
+#include <limits>
 std::string riskLogo = "\033[1m"
                        ".-.................................             .:........-.                           :-............-                  \n"
                        ".-                                  ..          :.        ::                           --            -                  \n"
@@ -78,6 +78,9 @@ void Consola::inicializar() {
         std::cin >> temp;
         gameMaster::getInstance()->jugadores.emplace_back(temp, menuColores.getSelection());
     }
+    cin.clear(); // Limpia el estado de error de cin
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
     // TODO: Hay un bug donde se muestra el mensaje de error, comando no valido, cuando en efecto ha salido bien
 }
 
