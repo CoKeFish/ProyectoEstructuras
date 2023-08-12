@@ -15,5 +15,7 @@ add_executable(Proyecto main.cpp
         Consola.h
         NavMenu.cpp
         NavMenu.h
-        NavMenu.h)
+        NavMenu.h
+        gameMaster.cpp
+        gameMaster.h)
 

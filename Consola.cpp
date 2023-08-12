@@ -5,6 +5,7 @@
 
 #include "Consola.h"
 #include "NavMenu.h"
+#include "gameMaster.h"
 
 std::string riskLogo = "\033[1m"
                        ".-.................................             .:........-.                           :-............-                  \n"
@@ -42,6 +43,15 @@ void Consola::inicializar() {
                                      MenuItem("6 jugadores")
                              });
 
+    NavMenu menuColores = NavMenu({
+        MenuItem("Amarillo"),
+        MenuItem("Rojo"),
+        MenuItem("Azul"),
+        MenuItem("Verde"),
+        MenuItem("Morado"),
+        MenuItem("Gris")
+    });
+
     std::string nJugadoresText = MenuJugadores.getSelection();
     int nJugadores = 0;
 
@@ -62,21 +72,13 @@ void Consola::inicializar() {
         nJugadores = 6;
     }
 
-    std::string ale;
+    std::string temp;
     for (int i = 0; i < nJugadores; ++i) {
         std::cout << "Ingresa el nombre del " << i << " jugador\n";
-        std::cin >> ale;
+        std::cin >> temp;
+        gameMaster::getInstance()->jugadores.emplace_back(temp, menuColores.getSelection());
     }
-
-    NavMenu myMenu = NavMenu({
-                               MenuItem("Opcion 1"),
-                               MenuItem("Opcion 2", {MenuItem("Subopcion 2.1", {MenuItem("Subopcion 2.1.1"), MenuItem("Subopcion 2.1.2"), MenuItem("Subopcion 2.1.3")}), MenuItem("Subopcion 2.2"), MenuItem("Subopcion 2.3")}),
-                               MenuItem("Opcion 3")
-                       });
-
-    std::cout << myMenu.getSelection();
-
-
+    // TODO: Hay un bug donde se muestra el mensaje de error, comando no valido, cuando en efecto ha salido bien
 }
 
 void Consola::mostrarAyuda() {

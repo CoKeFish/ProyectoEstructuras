@@ -24,6 +24,9 @@ private:
     //! Nombre del jugador.
     string nombre;
 
+    //! Color del jugador.
+    string color;
+
     //! Número total de ejércitos que tiene el jugador.
     int numEjercitos;
 
@@ -36,7 +39,7 @@ public:
      * @brief Constructor que inicializa un jugador con su nombre.
      * @param n Nombre del jugador.
      */
-    explicit Jugador(string n);
+    explicit Jugador(string n, string color);
 
     /**
      * @brief Agrega un territorio a la lista de territorios del jugador.

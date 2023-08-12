@@ -6,9 +6,10 @@
 
 #include <utility>
 
-Jugador::Jugador(string n)
+Jugador::Jugador(string n, string color)
 {
     this->nombre = std::move(n);
+    this->color = std::move(color);
     this->numEjercitos = 0;
 }
 

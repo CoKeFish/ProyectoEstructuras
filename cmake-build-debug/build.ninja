@@ -85,6 +85,12 @@ build CMakeFiles/Proyecto.dir/NavMenu.cpp.obj: CXX_COMPILER__Proyecto_unscanned_
   OBJECT_DIR = CMakeFiles\Proyecto.dir
   OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
 
+build CMakeFiles/Proyecto.dir/gameMaster.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug C$:/Users/rrtc2/OneDrive/Escritorio/2303/Estructuras/Proyecto/gameMaster.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\gameMaster.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Proyecto
@@ -93,7 +99,7 @@ build CMakeFiles/Proyecto.dir/NavMenu.cpp.obj: CXX_COMPILER__Proyecto_unscanned_
 #############################################
 # Link the executable Proyecto.exe
 
-build Proyecto.exe: CXX_EXECUTABLE_LINKER__Proyecto_Debug CMakeFiles/Proyecto.dir/main.cpp.obj CMakeFiles/Proyecto.dir/Territorio.cpp.obj CMakeFiles/Proyecto.dir/Jugador.cpp.obj CMakeFiles/Proyecto.dir/Mapa.cpp.obj CMakeFiles/Proyecto.dir/Consola.cpp.obj CMakeFiles/Proyecto.dir/NavMenu.cpp.obj
+build Proyecto.exe: CXX_EXECUTABLE_LINKER__Proyecto_Debug CMakeFiles/Proyecto.dir/main.cpp.obj CMakeFiles/Proyecto.dir/Territorio.cpp.obj CMakeFiles/Proyecto.dir/Jugador.cpp.obj CMakeFiles/Proyecto.dir/Mapa.cpp.obj CMakeFiles/Proyecto.dir/Consola.cpp.obj CMakeFiles/Proyecto.dir/NavMenu.cpp.obj CMakeFiles/Proyecto.dir/gameMaster.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Proyecto.dir
