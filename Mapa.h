@@ -15,27 +15,28 @@ private:
     std::map<std::string, Territorio> territorios = {
 
             // ÁFRICA
-            {"Africa del Norte", Territorio("Africa del Norte", Continente::AFRICA)},
-            {"Africa del Sur", Territorio("Africa del Sur", Continente::AFRICA)},
-            {"Africa Oriental", Territorio("Africa Oriental", Continente::AFRICA)},
             {"Congo", Territorio("Congo", Continente::AFRICA)},
+            {"África Oriental", Territorio("África Oriental", Continente::AFRICA)},
             {"Egipto", Territorio("Egipto", Continente::AFRICA)},
             {"Madagascar", Territorio("Madagascar", Continente::AFRICA)},
+            {"África del Norte", Territorio("África del Norte", Continente::AFRICA)},
+            {"África del Sur", Territorio("África del Sur", Continente::AFRICA)},
+
 
             // ASIA
-            {"Afganistán", Territorio("Afganistán", Continente::ASIA)},
+            {"Afghanistán", Territorio("Afghanistán", Continente::ASIA)},
             {"China", Territorio("China", Continente::ASIA)},
             {"India", Territorio("India", Continente::ASIA)},
-            {"Irkutskpp", Territorio("Irkutsk", Continente::ASIA)},
+            {"Irkutsk", Territorio("Irkutsk", Continente::ASIA)},
             {"Japón", Territorio("Japón", Continente::ASIA)},
             {"Kamchatka", Territorio("Kamchatka", Continente::ASIA)},
+            {"Medio Oriente", Territorio("Medio Oriente", Continente::ASIA)},
             {"Mongolia", Territorio("Mongolia", Continente::ASIA)},
-            {"Oriente Medio", Territorio("Oriente Medio", Continente::ASIA)},
             {"Siam", Territorio("Siam", Continente::ASIA)},
             {"Siberia", Territorio("Siberia", Continente::ASIA)},
-            {"Taymir", Territorio("Taymir", Continente::ASIA)},
             {"Ural", Territorio("Ural", Continente::ASIA)},
             {"Yakutsk", Territorio("Yakutsk", Continente::ASIA)},
+
 
             // EUROPA
             {"Escandinavia", Territorio("Escandinavia", Continente::EUROPA)},
@@ -49,25 +50,27 @@ private:
             // NORTEAMÉRICA
             {"Alaska", Territorio("Alaska", Continente::NORTEAMERICA)},
             {"Alberta", Territorio("Alberta", Continente::NORTEAMERICA)},
-            {"America Central", Territorio("America Central", Continente::NORTEAMERICA)},
-            {"Estados del Este", Territorio("Estados del Este", Continente::NORTEAMERICA)},
-            {"Estados del Oeste", Territorio("Estados del Oeste", Continente::NORTEAMERICA)},
+            {"América Central", Territorio("América Central", Continente::NORTEAMERICA)},
+            {"Estados Unidos Orientales", Territorio("Estados Unidos Orientales", Continente::NORTEAMERICA)},
+            {"Estados Unidos Occidentales", Territorio("Estados Unidos Occidentales", Continente::NORTEAMERICA)},
             {"Groenlandia", Territorio("Groenlandia", Continente::NORTEAMERICA)},
+            {"Territorio Noroccidental", Territorio("Territorio Noroccidental", Continente::NORTEAMERICA)},
             {"Ontario", Territorio("Ontario", Continente::NORTEAMERICA)},
             {"Quebec", Territorio("Quebec", Continente::NORTEAMERICA)},
-            {"Territorios del Noroeste", Territorio("Territorios del Noroeste", Continente::NORTEAMERICA)},
 
             // OCEANÍA
-            {"Australia", Territorio("Australia", Continente::OCEANIA)},
+            {"Australia Oriental", Territorio("Australia Oriental", Continente::OCEANIA)},
+            {"Australia Occidental", Territorio("Australia Occidental", Continente::OCEANIA)},
             {"Indonesia", Territorio("Indonesia", Continente::OCEANIA)},
             {"Nueva Guinea", Territorio("Nueva Guinea", Continente::OCEANIA)},
 
             // SUDAMÉRICA
             {"Argentina", Territorio("Argentina", Continente::SUDAMERICA)},
             {"Brasil", Territorio("Brasil", Continente::SUDAMERICA)},
-            {"Peru", Territorio("Peru", Continente::SUDAMERICA)},
+            {"Perú", Territorio("Perú", Continente::SUDAMERICA)},
             {"Venezuela", Territorio("Venezuela", Continente::SUDAMERICA)}
     };
+
 
 
 

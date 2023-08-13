@@ -85,12 +85,21 @@ void getPreviousValidItem(std::vector<MenuItem>::iterator& currentOption, std::v
 
 
 
-void getFirstValidItem(std::vector<MenuItem>* menu, const std::vector<MenuItem*>& excludeItems, std::vector<MenuItem>::iterator& currentOption) {
-    currentOption = std::find_if(menu->begin(), menu->end(), [&excludeItems](MenuItem &item){
+void getFirstValidItem(std::vector<MenuItem>* menu, std::vector<MenuItem*>& excludeItems, std::vector<MenuItem>::iterator& currentOption) {
+    auto it = std::find_if(menu->begin(), menu->end(), [&excludeItems](MenuItem &item){
         return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
     });
 
+    // Verificamos si encontramos un elemento válido y si es diferente de currentOption.
+    if (it != menu->end() && it != currentOption) {
+        currentOption = it;
+    } else {
+        // En caso de no encontrar un elemento válido o si es igual a currentOption,
+        // avanzamos hasta el siguiente elemento válido.
+        getNextValidItem(currentOption, menu, excludeItems);
+    }
 }
+
 
 
 
@@ -130,7 +139,7 @@ MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
                         return r;
                     } else
                     {
-                        this->currentMenu = &currentOption->subItems;
+                        this->currentMenu = &((*currentOption).subItems);
                         this->pila.push_back(&(*currentOption));
                         getFirstValidItem(this->currentMenu, excludeItems, currentOption);
 

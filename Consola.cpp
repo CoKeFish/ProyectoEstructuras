@@ -93,62 +93,62 @@ void Consola::inicializar() {
     // Menús para los territorios de cada continente
     std::vector<MenuItem> americaNorte = {
             MenuItem("Alaska"),
-            MenuItem("Territorio del Noroeste"),
-            MenuItem("Groenlandia"),
+            MenuItem("Alberta"),
             MenuItem("América Central"),
-            MenuItem("México"),
-            MenuItem("Estados del Este"),
-            MenuItem("Estados del Oeste"),
-            MenuItem("Canadá Oriental"),
-            MenuItem("Canadá Occidental")
+            MenuItem("Estados Unidos Orientales"),
+            MenuItem("Groenlandia"),
+            MenuItem("Territorio Noroccidental"),
+            MenuItem("Ontario"),
+            MenuItem("Quebec"),
+            MenuItem("Estados Unidos Occidentales")
     };
 
     std::vector<MenuItem> americaSur = {
-            MenuItem("Venezuela"),
-            MenuItem("Perú"),
+            MenuItem("Argentina"),
             MenuItem("Brasil"),
-            MenuItem("Argentina")
+            MenuItem("Perú"),
+            MenuItem("Venezuela")
     };
 
     std::vector<MenuItem> europa = {
+            MenuItem("Gran Bretaña"),
             MenuItem("Islandia"),
-            MenuItem("Escandinavia"),
-            MenuItem("Rusia"),
-            MenuItem("Ucrania"),
             MenuItem("Europa del Norte"),
-            MenuItem("Europa del Oeste"),
-            MenuItem("Europa del Sur")
+            MenuItem("Escandinavia"),
+            MenuItem("Europa del Sur"),
+            MenuItem("Ucrania"),
+            MenuItem("Europa Occidental")
     };
 
     std::vector<MenuItem> africa = {
-            MenuItem("África del Norte"),
-            MenuItem("Egipto"),
             MenuItem("Congo"),
-            MenuItem("África del Este"),
-            MenuItem("África del Sur"),
-            MenuItem("Madagascar")
+            MenuItem("África Oriental"),
+            MenuItem("Egipto"),
+            MenuItem("Madagascar"),
+            MenuItem("África del Norte"),
+            MenuItem("África del Sur")
     };
 
     std::vector<MenuItem> asia = {
-            MenuItem("Ural"),
-            MenuItem("Siberia"),
-            MenuItem("Yakutia"),
-            MenuItem("Kamchatka"),
-            MenuItem("Irkutsk"),
-            MenuItem("Mongolia"),
-            MenuItem("Japón"),
-            MenuItem("Afganistán"),
-            MenuItem("Oriente Medio"),
+            MenuItem("Afghanistán"),
+            MenuItem("China"),
             MenuItem("India"),
+            MenuItem("Irkutsk"),
+            MenuItem("Japón"),
+            MenuItem("Kamchatka"),
+            MenuItem("Medio Oriente"),
+            MenuItem("Mongolia"),
             MenuItem("Siam"),
-            MenuItem("China")
+            MenuItem("Siberia"),
+            MenuItem("Ural"),
+            MenuItem("Yakutsk")
     };
 
     std::vector<MenuItem> australia = {
+            MenuItem("Australia Oriental"),
             MenuItem("Indonesia"),
             MenuItem("Nueva Guinea"),
-            MenuItem("Australia Occidental"),
-            MenuItem("Australia Oriental")
+            MenuItem("Australia Occidental")
     };
 
     // Menú principal para los continentes, que incluye sus respectivos territorios
@@ -158,12 +158,7 @@ void Consola::inicializar() {
                                        MenuItem("Europa", europa),
                                        MenuItem("África", africa),
                                        MenuItem("Asia", asia),
-                                       MenuItem("Australia", {
-                                               MenuItem("Indonesia"),
-                                               MenuItem("Nueva Guinea"),
-                                               MenuItem("Australia Occidental"),
-                                               MenuItem("Australia Oriental")
-                                       })
+                                       MenuItem("Australia", australia)
                                });
 
 
