@@ -37,7 +37,7 @@ public:
 public:
     explicit NavMenu(std::vector<MenuItem> menu);
 
-    MenuItem* getSelection(const std::vector<MenuItem*>& excludeItems);
+    MenuItem* getSelection(std::vector<MenuItem*>& excludeItems);
 
 
 };

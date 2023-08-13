@@ -35,21 +35,25 @@ NavMenu::NavMenu(std::vector<MenuItem> menu)
 }
 
 
-MenuItem* getNextValidItem(int& currentOption, std::vector<MenuItem>* currentMenu, const std::vector<MenuItem*>& excludeItems) {
+MenuItem* getNextValidItem(int& currentOption, std::vector<MenuItem>* currentMenu, std::vector<MenuItem*>& excludeItems) {
+    excludeItems.push_back(&(*currentMenu)[currentOption]);
     int originalOption = currentOption;
     do {
         currentOption = (currentOption + 1) % currentMenu->size();
     } while (std::find(excludeItems.begin(), excludeItems.end(), &(*currentMenu)[currentOption]) != excludeItems.end() && currentOption != originalOption);
 
+    excludeItems.pop_back();
     return &(*currentMenu)[currentOption];
 }
 
-MenuItem* getPreviousValidItem(int& currentOption, std::vector<MenuItem>* currentMenu, const std::vector<MenuItem*>& excludeItems) {
+MenuItem* getPreviousValidItem(int& currentOption, std::vector<MenuItem>* currentMenu, std::vector<MenuItem*>& excludeItems) {
+    excludeItems.push_back(&(*currentMenu)[currentOption]);
     int originalOption = currentOption;
     do {
         currentOption = (currentOption - 1 + currentMenu->size()) % currentMenu->size();
     } while (std::find(excludeItems.begin(), excludeItems.end(), &(*currentMenu)[currentOption]) != excludeItems.end() && currentOption != originalOption);
 
+    excludeItems.pop_back();
     return &(*currentMenu)[currentOption];
 }
 
@@ -65,7 +69,7 @@ MenuItem* getFirstValidItem(std::vector<MenuItem>* menu, const std::vector<MenuI
 }
 
 
-MenuItem* NavMenu::getSelection(const std::vector<MenuItem*>& excludeItems)
+MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
 {
     HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
     INPUT_RECORD irInput;
