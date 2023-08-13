@@ -92,3 +92,12 @@
 4	1676	7135946375740000	CMakeFiles/Proyecto.dir/main.cpp.obj	84dd5e0e496dd970
 11	2353	7135946382490000	CMakeFiles/Proyecto.dir/Consola.cpp.obj	165f39aa613aacd
 2353	3131	7135946390190000	Proyecto.exe	edf37b23ba808410
+4	2093	7135968722720000	CMakeFiles/Proyecto.dir/Consola.cpp.obj	165f39aa613aacd
+8	559	7135972400840000	CMakeFiles/Proyecto.dir/Mapa.cpp.obj	7bd036598136f31d
+11	748	7135972402720000	CMakeFiles/Proyecto.dir/gameMaster.cpp.obj	805c0bb7b46cd01a
+4	2182	7135972417030000	CMakeFiles/Proyecto.dir/Consola.cpp.obj	165f39aa613aacd
+2183	3006	7135972425160000	Proyecto.exe	edf37b23ba808410
+5	1556	7135976018650000	CMakeFiles/Proyecto.dir/NavMenu.cpp.obj	e3a9e065335974ef
+1558	4193	7135976044930000	Proyecto.exe	edf37b23ba808410
+4	2264	7135977775750000	CMakeFiles/Proyecto.dir/Consola.cpp.obj	165f39aa613aacd
+2267	3701	7135977790030000	Proyecto.exe	edf37b23ba808410

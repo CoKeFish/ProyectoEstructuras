@@ -182,16 +182,20 @@ void Consola::inicializar() {
 
     std::vector<MenuItem*> TerritoriosExcluidos;
     for (int i = 0; i < 42; ++i) {
-        Jugador& jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
+        Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
         if (jugadorActual.obtenerNumEjercitos() > 0) {
-            std::cout << "Jugador " << jugadorActual.obtenerNombre() << ", selecciona un territorio para colocar una infantería.\n";
-            MenuItem* tempMenuItem = menuRisk.getSelection(TerritoriosExcluidos);
-            Territorio* territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(tempMenuItem->name);
+            std::cout << "Jugador " << jugadorActual.obtenerNombre()
+                      << ", selecciona un territorio para colocar una infantería.\n";
+            MenuItem *tempMenuItem = menuRisk.getSelection(TerritoriosExcluidos);
+            Territorio *territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(tempMenuItem->name);
             jugadorActual.agregarTerritorio(territorio);
             jugadorActual.asignarEjercitos(-1);
             territorio->asignarJugador(&jugadorActual);
             territorio->modificarEjercitos(1);
+
+            TerritoriosExcluidos.push_back(tempMenuItem);
         }
+    }
     system("pause");
 
 

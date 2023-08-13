@@ -93,7 +93,12 @@ MenuItem* NavMenu::getSelection(const std::vector<MenuItem*>& excludeItems)
                     if(this->currentItem->subItems.empty())
                     {
                         auto r = this->currentItem;
+
+                        currentOption = 0;
+                        this->currentMenu = &this->menu;
+                        this->pila.clear();
                         this->currentItem = getFirstValidItem(this->currentMenu, excludeItems, this->currentItem);
+
                         return r;
                     } else
                     {

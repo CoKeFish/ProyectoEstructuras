@@ -73,7 +73,7 @@ private:
 
 public:
     void inicializar();
-    Territorio* obtenerTerritorio(std::string nombre);
+    Territorio* obtenerTerritorio(const std::string& nombre);
 };
 
 
