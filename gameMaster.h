@@ -15,10 +15,11 @@ private:
     // Constructor privado para que no pueda ser llamado
     gameMaster() = default;
 
-
-
     // Instancia estática
     static gameMaster* instance;
+
+    //Numero de jugadores
+    int nJugadores = 0;
 
 
 
@@ -35,6 +36,10 @@ public:
 
     // Método estático para acceder a la instancia
     static gameMaster* getInstance();
+
+    void setnJugadores(const std::string& n);
+
+    int getnJugadores();
 
 
 };

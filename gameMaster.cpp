@@ -15,3 +15,27 @@ gameMaster *gameMaster::getInstance()
     }
     return instance;
 }
+
+void gameMaster::setnJugadores(const std::string& nJugadoresText) {
+    if(nJugadoresText == "3 jugadores")
+    {
+        nJugadores = 3;
+    }
+    else if(nJugadoresText == "4 jugadores")
+    {
+        nJugadores = 4;
+    }
+    else if(nJugadoresText == "5 jugadores")
+    {
+        nJugadores = 5;
+    }
+    else if(nJugadoresText == "6 jugadores")
+    {
+        nJugadores = 6;
+    }
+
+}
+
+int gameMaster::getnJugadores() {
+    return nJugadores;
+}

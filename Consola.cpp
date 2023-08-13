@@ -166,39 +166,31 @@ void Consola::inicializar() {
                                        })
                                });
 
-    system("pause");
+
 
     std::vector<MenuItem*> ColoresExcluidos;
-    std::string nJugadoresText = MenuJugadores.getSelection(ColoresExcluidos)->name;
-    int nJugadores = 0;
-
-    if(nJugadoresText == "3 jugadores")
-    {
-        nJugadores = 3;
-    }
-    else if(nJugadoresText == "4 jugadores")
-    {
-        nJugadores = 4;
-    }
-    else if(nJugadoresText == "5 jugadores")
-    {
-        nJugadores = 5;
-    }
-    else if(nJugadoresText == "6 jugadores")
-    {
-        nJugadores = 6;
-    }
+    gameMaster::getInstance()->setnJugadores(MenuJugadores.getSelection(std::vector<MenuItem*>())->name);
 
     std::string temp;
-    for (int i = 0; i < nJugadores; ++i) {
+    for (int i = 0; i < gameMaster::getInstance()->getnJugadores(); ++i) {
         std::cout << "Ingresa el nombre del " << i << " jugador\n";
         std::cin >> temp;
         MenuItem* tempMenuItem = menuColores.getSelection(ColoresExcluidos);
-        gameMaster::getInstance()->jugadores.emplace_back(temp, tempMenuItem->name);
+        gameMaster::getInstance()->jugadores.emplace_back(temp, tempMenuItem->name, Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
         ColoresExcluidos.push_back(tempMenuItem);
     }
-    cin.clear(); // Limpia el estado de error de cin
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    std::vector<MenuItem*> TerritoriosExcluidos;
+    for (int i = 0; i < 42; ++i) {
+        Jugador& jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
+        if (jugadorActual.obtenerNumEjercitos() > 0) {
+            std::cout << "Jugador " << jugadorActual.obtenerNombre() << ", selecciona un territorio para colocar una infantería.\n";
+            MenuItem* tempMenuItem = menuRisk.getSelection(TerritoriosExcluidos);
+            jugadorActual.agregarTerritorio(new Territorio())
+        }
+    system("pause");
+
+
 
     // TODO: Hay un bug donde se muestra el mensaje de error, comando no valido, cuando en efecto ha salido bien
 }

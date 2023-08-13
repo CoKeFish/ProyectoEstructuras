@@ -4,7 +4,9 @@
 
 #ifndef PROYECTO_JUGADOR_H
 #define PROYECTO_JUGADOR_H
+#include <iostream>
 #include <string>
+
 #include <list>
 #include "Territorio.h"
 
@@ -35,11 +37,17 @@ private:
 
 public:
 
+
+    static int calcularEjercitosIniciales(int numero_jugadores);
+
+
+    friend std::ostream& operator<<(std::ostream& os, const Jugador& jugador);
+
     /**
      * @brief Constructor que inicializa un jugador con su nombre.
      * @param n Nombre del jugador.
      */
-    explicit Jugador(string n, string color);
+    explicit Jugador(string n, string color, int ejercitosIniciales);
 
     /**
      * @brief Agrega un territorio a la lista de territorios del jugador.
@@ -77,6 +85,9 @@ public:
      */
     list<Territorio*> obtenerTerritorios();
 };
+
+
+
 
 
 #endif //PROYECTO_JUGADOR_H
