@@ -186,7 +186,11 @@ void Consola::inicializar() {
         if (jugadorActual.obtenerNumEjercitos() > 0) {
             std::cout << "Jugador " << jugadorActual.obtenerNombre() << ", selecciona un territorio para colocar una infantería.\n";
             MenuItem* tempMenuItem = menuRisk.getSelection(TerritoriosExcluidos);
-            jugadorActual.agregarTerritorio(new Territorio())
+            Territorio* territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(tempMenuItem->name);
+            jugadorActual.agregarTerritorio(territorio);
+            jugadorActual.asignarEjercitos(-1);
+            territorio->asignarJugador(&jugadorActual);
+            territorio->modificarEjercitos(1);
         }
     system("pause");
 
