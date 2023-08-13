@@ -169,7 +169,7 @@ void Consola::inicializar() {
 
 
     std::vector<MenuItem*> ColoresExcluidos;
-    gameMaster::getInstance()->setnJugadores(MenuJugadores.getSelection(std::vector<MenuItem*>())->name);
+    gameMaster::getInstance()->setnJugadores(MenuJugadores.getSelection(ColoresExcluidos)->name);
 
     std::string temp;
     for (int i = 0; i < gameMaster::getInstance()->getnJugadores(); ++i) {

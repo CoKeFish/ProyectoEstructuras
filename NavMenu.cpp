@@ -30,43 +30,68 @@ void ClearConsoleExceptFirstNLines(int n) {
 NavMenu::NavMenu(std::vector<MenuItem> menu)
 {
     this->menu = std::move(menu);
-    this->currentItem = &this->menu[0];
     this->currentMenu = &this->menu;
+    this->currentOption = this->menu.begin();
 }
 
 
-MenuItem* getNextValidItem(int& currentOption, std::vector<MenuItem>* currentMenu, std::vector<MenuItem*>& excludeItems) {
-    excludeItems.push_back(&(*currentMenu)[currentOption]);
-    int originalOption = currentOption;
-    do {
-        currentOption = (currentOption + 1) % currentMenu->size();
-    } while (std::find(excludeItems.begin(), excludeItems.end(), &(*currentMenu)[currentOption]) != excludeItems.end() && currentOption != originalOption);
+void getNextValidItem(std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem>* currentMenu, std::vector<MenuItem*>& excludeItems) {
+    auto end = currentMenu->end();
+    auto it = std::find_if(currentOption+1, end, [&excludeItems](const MenuItem& item) {
+        return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+    });
 
-    excludeItems.pop_back();
-    return &(*currentMenu)[currentOption];
-}
-
-MenuItem* getPreviousValidItem(int& currentOption, std::vector<MenuItem>* currentMenu, std::vector<MenuItem*>& excludeItems) {
-    excludeItems.push_back(&(*currentMenu)[currentOption]);
-    int originalOption = currentOption;
-    do {
-        currentOption = (currentOption - 1 + currentMenu->size()) % currentMenu->size();
-    } while (std::find(excludeItems.begin(), excludeItems.end(), &(*currentMenu)[currentOption]) != excludeItems.end() && currentOption != originalOption);
-
-    excludeItems.pop_back();
-    return &(*currentMenu)[currentOption];
-}
-
-MenuItem* getFirstValidItem(std::vector<MenuItem>* menu, const std::vector<MenuItem*>& excludeItems, MenuItem* current) {
-    for (auto& item : *menu) {
-        if(&item == current)
-            continue;
-        if (std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end()) {
-            return &item;
+    if (it != end) {
+        currentOption = it;
+        return;
+    } else {
+        // If not found in the remainder of the vector, start from the beginning.
+        it = std::find_if(currentMenu->begin(), currentOption, [&excludeItems](const MenuItem& item) {
+            return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+        });
+        if (it != currentOption) {
+            currentOption = it;
+            return;
         }
     }
-    return nullptr; // Esto no debería ocurrir a menos que todo el menú esté excluido
 }
+
+
+void getPreviousValidItem(std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem>* currentMenu, std::vector<MenuItem*>& excludeItems) {
+    auto rcurrentOption = std::make_reverse_iterator(currentOption);
+    auto rend = currentMenu->rend();
+
+    auto it = std::find_if(rcurrentOption, rend, [&excludeItems](const MenuItem &item) {
+        return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+    });
+
+    if (it != rend) {
+        currentOption = std::prev(it.base());
+        return;
+    } else {
+        auto rbegin = currentMenu->rbegin();
+        it = std::find_if(rbegin, rcurrentOption, [&excludeItems](const MenuItem& item) {
+            return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+        });
+        if (it != rcurrentOption) {
+            currentOption = std::prev(it.base());
+            return;
+        }
+    }
+}
+
+
+
+
+
+
+void getFirstValidItem(std::vector<MenuItem>* menu, const std::vector<MenuItem*>& excludeItems, std::vector<MenuItem>::iterator& currentOption) {
+    currentOption = std::find_if(menu->begin(), menu->end(), [&excludeItems](MenuItem &item){
+        return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+    });
+
+}
+
 
 
 MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
@@ -75,12 +100,12 @@ MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
     INPUT_RECORD irInput;
     DWORD dwEventsRead;
 
-    int currentOption = 0;
+
     while (true) {
         ClearConsoleExceptFirstNLines(25);
         gotoxy(0, 25);
 
-        imprimirMenu(&this->menu, this->currentItem, this->pila, 0, excludeItems);
+        imprimirMenu(&this->menu, currentOption, this->pila, 0, excludeItems);
 
 
         ReadConsoleInput(hInput, &irInput, 1, &dwEventsRead);
@@ -88,36 +113,33 @@ MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
         if (irInput.EventType == KEY_EVENT && irInput.Event.KeyEvent.bKeyDown) {
             switch (irInput.Event.KeyEvent.wVirtualKeyCode) {
                 case VK_UP:
-                    this->currentItem = getPreviousValidItem(currentOption, this->currentMenu, excludeItems);
+                    getPreviousValidItem(currentOption, this->currentMenu, excludeItems);
                     break;
                 case VK_DOWN:
-                    this->currentItem = getNextValidItem(currentOption, this->currentMenu, excludeItems);
+                    getNextValidItem(currentOption, this->currentMenu, excludeItems);
                     break;
                 case VK_RETURN:
-                    if(this->currentItem->subItems.empty())
+                    if(currentOption->subItems.empty())
                     {
-                        auto r = this->currentItem;
+                        auto r = &(*currentOption);
 
-                        currentOption = 0;
                         this->currentMenu = &this->menu;
                         this->pila.clear();
-                        this->currentItem = getFirstValidItem(this->currentMenu, excludeItems, this->currentItem);
+                        getFirstValidItem(this->currentMenu, excludeItems, currentOption);
 
                         return r;
                     } else
                     {
-                        currentOption = 0;
-                        this->currentMenu = &this->currentItem->subItems;
-                        this->pila.push_back(this->currentItem);
-                        this->currentItem = &this->currentItem->subItems[0];
+                        this->currentMenu = &currentOption->subItems;
+                        this->pila.push_back(&(*currentOption));
+                        getFirstValidItem(this->currentMenu, excludeItems, currentOption);
 
                     }
                     break;
                 case VK_BACK:
-                    currentOption = 0;
                     this->currentMenu = &this->menu;
                     this->pila.clear();
-                    this->currentItem = &this->menu[0];
+                    currentOption = this->currentMenu->begin();
             }
         }
 
@@ -133,7 +155,7 @@ void tabs(int n)
     }
 }
 
-void imprimirMenu(std::vector<MenuItem>* menu, MenuItem* current, std::vector<MenuItem*> pila, int nivel, const std::vector<MenuItem*>& excludeItems)
+void imprimirMenu(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem*> pila, int nivel, const std::vector<MenuItem*>& excludeItems)
 {
     for (const auto& item: *menu) {
 
@@ -142,7 +164,7 @@ void imprimirMenu(std::vector<MenuItem>* menu, MenuItem* current, std::vector<Me
             continue;  // Si está en la lista de exclusión, continuamos con el siguiente item
         }
 
-        if(&item == current)
+        if(&item == &(*currentOption))
         {
             tabs(nivel);
             std::cout << "> " << item.name << " <" << std::endl;
@@ -155,7 +177,7 @@ void imprimirMenu(std::vector<MenuItem>* menu, MenuItem* current, std::vector<Me
         if(!pila.empty() && nivel >= 0 && nivel < pila.size())
         {
             if(&item == pila[nivel])
-                imprimirMenu(&pila[nivel]->subItems, current, pila, nivel+1, excludeItems);
+                imprimirMenu(&pila[nivel]->subItems, currentOption, pila, nivel+1, excludeItems);
         }
     }
 }

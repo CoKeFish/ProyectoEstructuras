@@ -10,6 +10,9 @@
 #include <utility>
 #include <vector>
 #include <functional>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 
 void tabs(int n);
@@ -23,16 +26,16 @@ public:
     MenuItem(std::string n, std::vector<MenuItem> subs) : name(std::move(n)), subItems(std::move(subs)) {}
 };
 
-void imprimirMenu(std::vector<MenuItem>* menu, MenuItem* current, std::vector<MenuItem*> pila, int nivel, const std::vector<MenuItem*>& excludeItems);
+void imprimirMenu(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem*> pila, int nivel, const std::vector<MenuItem*>& excludeItems);
 
 class NavMenu
 {
 public:
     std::function<void(const std::vector<std::string>&)> funcion;
     std::vector<MenuItem> menu;
-    MenuItem* currentItem = nullptr;
     std::vector<MenuItem*> pila;
     std::vector<MenuItem>* currentMenu;
+    std::vector<MenuItem>::iterator currentOption;
 
 public:
     explicit NavMenu(std::vector<MenuItem> menu);
