@@ -34,7 +34,38 @@ NavMenu::NavMenu(std::vector<MenuItem> menu)
     this->currentMenu = &this->menu;
 }
 
-std::string NavMenu::getSelection()
+
+MenuItem* getNextValidItem(int& currentOption, std::vector<MenuItem>* currentMenu, const std::vector<MenuItem*>& excludeItems) {
+    int originalOption = currentOption;
+    do {
+        currentOption = (currentOption + 1) % currentMenu->size();
+    } while (std::find(excludeItems.begin(), excludeItems.end(), &(*currentMenu)[currentOption]) != excludeItems.end() && currentOption != originalOption);
+
+    return &(*currentMenu)[currentOption];
+}
+
+MenuItem* getPreviousValidItem(int& currentOption, std::vector<MenuItem>* currentMenu, const std::vector<MenuItem*>& excludeItems) {
+    int originalOption = currentOption;
+    do {
+        currentOption = (currentOption - 1 + currentMenu->size()) % currentMenu->size();
+    } while (std::find(excludeItems.begin(), excludeItems.end(), &(*currentMenu)[currentOption]) != excludeItems.end() && currentOption != originalOption);
+
+    return &(*currentMenu)[currentOption];
+}
+
+MenuItem* getFirstValidItem(std::vector<MenuItem>* menu, const std::vector<MenuItem*>& excludeItems, MenuItem* current) {
+    for (auto& item : *menu) {
+        if(&item == current)
+            continue;
+        if (std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end()) {
+            return &item;
+        }
+    }
+    return nullptr; // Esto no debería ocurrir a menos que todo el menú esté excluido
+}
+
+
+MenuItem* NavMenu::getSelection(const std::vector<MenuItem*>& excludeItems)
 {
     HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
     INPUT_RECORD irInput;
@@ -45,24 +76,25 @@ std::string NavMenu::getSelection()
         ClearConsoleExceptFirstNLines(25);
         gotoxy(0, 25);
 
-        imprimirMenu(&this->menu, this->currentItem, this->pila, 0);
+        imprimirMenu(&this->menu, this->currentItem, this->pila, 0, excludeItems);
+
 
         ReadConsoleInput(hInput, &irInput, 1, &dwEventsRead);
 
         if (irInput.EventType == KEY_EVENT && irInput.Event.KeyEvent.bKeyDown) {
             switch (irInput.Event.KeyEvent.wVirtualKeyCode) {
                 case VK_UP:
-                    currentOption = (currentOption - 1 + this->currentMenu->size()) % this->currentMenu->size();
-                    this->currentItem = &(*this->currentMenu)[currentOption];
+                    this->currentItem = getPreviousValidItem(currentOption, this->currentMenu, excludeItems);
                     break;
                 case VK_DOWN:
-                    currentOption = (currentOption + 1) % this->currentMenu->size();
-                    this->currentItem = &(*this->currentMenu)[currentOption];
+                    this->currentItem = getNextValidItem(currentOption, this->currentMenu, excludeItems);
                     break;
                 case VK_RETURN:
                     if(this->currentItem->subItems.empty())
                     {
-                        return currentItem->name;
+                        auto r = this->currentItem;
+                        this->currentItem = getFirstValidItem(this->currentMenu, excludeItems, this->currentItem);
+                        return r;
                     } else
                     {
                         currentOption = 0;
@@ -92,9 +124,15 @@ void tabs(int n)
     }
 }
 
-void imprimirMenu(std::vector<MenuItem>* menu, MenuItem* current, std::vector<MenuItem*> pila, int nivel)
+void imprimirMenu(std::vector<MenuItem>* menu, MenuItem* current, std::vector<MenuItem*> pila, int nivel, const std::vector<MenuItem*>& excludeItems)
 {
     for (const auto& item: *menu) {
+
+        // Verificar si el item está en la lista de exclusión
+        if(std::find(excludeItems.begin(), excludeItems.end(), &item) != excludeItems.end()) {
+            continue;  // Si está en la lista de exclusión, continuamos con el siguiente item
+        }
+
         if(&item == current)
         {
             tabs(nivel);
@@ -108,7 +146,8 @@ void imprimirMenu(std::vector<MenuItem>* menu, MenuItem* current, std::vector<Me
         if(!pila.empty() && nivel >= 0 && nivel < pila.size())
         {
             if(&item == pila[nivel])
-                imprimirMenu(&pila[nivel]->subItems, current, pila, nivel+1);
+                imprimirMenu(&pila[nivel]->subItems, current, pila, nivel+1, excludeItems);
         }
     }
 }
+

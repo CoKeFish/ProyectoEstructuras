@@ -47,6 +47,26 @@ std::string riskLogo = "\033[1m"
                        " :               .-==-. - --=-.             .:                ::                       .               :    :          :";
 
 
+void mostrarInstruccionesConsola()
+{
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                              " << BOLD << "BIENVENIDO AL JUEGO RISK" << RESET << "                                                " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << "     INSTRUCCIONES:                                                                                                   " << RESET << BOLD << "|" << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                                                                                                      " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << MAGENTA << "     1. " << RESET << "Utiliza el comando '" << BOLD << GREEN << "inicializar" << RESET << "' para comenzar un nuevo juego.                                                " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << MAGENTA << "     2. " << RESET << "Usa el comando '" << BOLD << GREEN << "ayuda" << RESET << "' para obtener una lista de comandos.                                                    " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << MAGENTA << "     3. " << RESET << "Si necesitas detalles sobre un comando específico, escribe '" << BOLD << GREEN << "ayuda <comando>" << RESET << "'.                                 " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << MAGENTA << "     4. " << RESET << "¡Diviértete y conquista el mundo!                                                                             " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                                                                                                      " << BOLD << "|" << RESET << std::endl;
+}
+
+
+void separadorTextoConsola()
+{
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << BOLD_OFF << RESET << std::endl;
+}
+
 
 
 void Consola::inicializar() {
@@ -146,10 +166,10 @@ void Consola::inicializar() {
                                        })
                                });
 
-    std::cout << menuRisk.getSelection();
     system("pause");
 
-    std::string nJugadoresText = MenuJugadores.getSelection();
+    std::vector<MenuItem*> ColoresExcluidos;
+    std::string nJugadoresText = MenuJugadores.getSelection(ColoresExcluidos)->name;
     int nJugadores = 0;
 
     if(nJugadoresText == "3 jugadores")
@@ -173,7 +193,9 @@ void Consola::inicializar() {
     for (int i = 0; i < nJugadores; ++i) {
         std::cout << "Ingresa el nombre del " << i << " jugador\n";
         std::cin >> temp;
-        gameMaster::getInstance()->jugadores.emplace_back(temp, menuColores.getSelection());
+        MenuItem* tempMenuItem = menuColores.getSelection(ColoresExcluidos);
+        gameMaster::getInstance()->jugadores.emplace_back(temp, tempMenuItem->name);
+        ColoresExcluidos.push_back(tempMenuItem);
     }
     cin.clear(); // Limpia el estado de error de cin
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -182,26 +204,31 @@ void Consola::inicializar() {
 }
 
 void Consola::mostrarAyuda() {
-    std::cout << "Comandos disponibles:\n";
+    separadorTextoConsola();
+    std::cout << "                                                 " << BOLD << YELLOW << "COMANDOS DISPONIBLES:\n" << RESET;
+    separadorTextoConsola();
     for (const auto &[comando, info]: comandos) {
-        std::cout << " - " << comando << "\n";
+        std::cout << BOLD << MAGENTA << "   - " << RESET << comando << "\n";
     }
 }
 
 void Consola::mostrarAyuda(const std::string &comando) {
     auto it = comandos.find(comando);
     if (it != comandos.end()) {
-        std::cout << "Información para el comando '" << comando << "':\n";
-        std::cout << " - Argumentos válidos: ";
+        separadorTextoConsola();
+        std::cout << "                                                 " << BOLD << YELLOW << "INFORMACIÓN PARA EL COMANDO: '" << comando << "':\n" << RESET;
+        separadorTextoConsola();
+        std::cout << BOLD << MAGENTA << "   - " << RESET << "ARGUMENTOS VÁLIDOS: ";
         for (const auto &numArgs: it->second.argumentosValidos) {
-            std::cout << numArgs << " ";
+            std::cout << BOLD << YELLOW << numArgs << " " << RESET;
         }
         std::cout << "\n";
-        std::cout << " - Descripción para el comando: \n";
+        std::cout << BOLD << MAGENTA << "   - " << RESET << "DESCRIPCIÓN Y USO:" << "\n\n";
         std::cout << it->second.descripcion << std::endl;
     } else {
-        std::cout << "El comando '" << comando
-                  << "' no es reconocido. Escribe 'ayuda' para ver una lista de comandos.\n";
+        std::cout << BOLD << RED << "\tEl comando '" << comando
+                  << "' no es reconocido. Escribe 'ayuda' para ver una lista de comandos.\n" << RESET;
+        mostrarInstrucciones = true;
     }
 }
 
@@ -315,28 +342,10 @@ void cambiarTamanoBufferYVentana(short anchoBuffer, short altoBuffer, short anch
 
 
 
-void mostrarInstruccionesConsola()
-{
-    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
-    std::cout << BOLD << "|" << RESET << "                                              " << BOLD << "BIENVENIDO AL JUEGO RISK" << RESET << "                                                " << BOLD << "|" << RESET << std::endl;
-    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
-    std::cout << BOLD << "|" << "     INSTRUCCIONES:                                                                                                   " << RESET << BOLD << "|" << std::endl;
-    std::cout << BOLD << "|" << RESET << "                                                                                                                      " << BOLD << "|" << RESET << std::endl;
-    std::cout << BOLD << "|" << MAGENTA << "     1. " << RESET << "Utiliza el comando '" << BOLD << GREEN << "inicializar" << RESET << "' para comenzar un nuevo juego.                                                " << BOLD << "|" << RESET << std::endl;
-    std::cout << BOLD << "|" << MAGENTA << "     2. " << RESET << "Usa el comando '" << BOLD << GREEN << "ayuda" << RESET << "' para obtener una lista de comandos.                                                    " << BOLD << "|" << RESET << std::endl;
-    std::cout << BOLD << "|" << MAGENTA << "     3. " << RESET << "Si necesitas detalles sobre un comando específico, escribe '" << BOLD << GREEN << "ayuda <comando>" << RESET << "'.                                 " << BOLD << "|" << RESET << std::endl;
-    std::cout << BOLD << "|" << MAGENTA << "     4. " << RESET << "¡Diviértete y conquista el mundo!                                                                             " << BOLD << "|" << RESET << std::endl;
-    std::cout << BOLD << "|" << RESET << "                                                                                                                      " << BOLD << "|" << RESET << std::endl;
-}
-
-
-void separadorTextoConsola()
-{
-    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << BOLD_OFF << RESET << std::endl;
-}
 
 void Consola::iniciar() {
-    std::string entrada;
+
+    std::string entradaComando;
     cambiarTamanoBufferYVentana(160,1, 120, 35);
     std::cout << riskLogo;
     separadorTextoConsola();
@@ -350,14 +359,15 @@ void Consola::iniciar() {
             mostrarInstrucciones = false;
             separadorTextoConsola();
         }
+
         std::cout << "\n$ ";
-        getline(std::cin, entrada);
+        getline(std::cin, entradaComando);
         system("cls");
         std::cout << riskLogo;
         separadorTextoConsola();
 
 
-        std::istringstream stream(entrada);
+        std::istringstream stream(entradaComando);
         std::string comando;
         std::vector<std::string> argumentos;
 

@@ -23,7 +23,7 @@ public:
     MenuItem(std::string n, std::vector<MenuItem> subs) : name(std::move(n)), subItems(std::move(subs)) {}
 };
 
-void imprimirMenu(std::vector<MenuItem>* menu, MenuItem* current, std::vector<MenuItem*> pila, int nivel);
+void imprimirMenu(std::vector<MenuItem>* menu, MenuItem* current, std::vector<MenuItem*> pila, int nivel, const std::vector<MenuItem*>& excludeItems);
 
 class NavMenu
 {
@@ -37,7 +37,8 @@ public:
 public:
     explicit NavMenu(std::vector<MenuItem> menu);
 
-    std::string getSelection();
+    MenuItem* getSelection(const std::vector<MenuItem*>& excludeItems);
+
 
 };
 
