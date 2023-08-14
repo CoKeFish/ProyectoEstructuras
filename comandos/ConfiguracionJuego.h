@@ -34,6 +34,8 @@ public:
 
     static void ingresarTerritoriosAJugadores();
 
+    static void asignarEjercitosJugadores();
+
     void saltarConfiguracion();
 };
 

@@ -87,4 +87,15 @@ void ConfiguracionJuego::saltarConfiguracion() {
 
 }
 
+void ConfiguracionJuego::asignarEjercitosJugadores() {
+
+    for(int i = 0; gameMaster::getInstance()->ejercitosPorAsignar(); i++)
+    {
+
+    }
+    Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
+
+}
+
+
 

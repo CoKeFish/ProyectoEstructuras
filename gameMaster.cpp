@@ -39,3 +39,11 @@ void gameMaster::setnJugadores(const std::string& nJugadoresText) {
 int gameMaster::getnJugadores() {
     return nJugadores;
 }
+
+int gameMaster::ejercitosPorAsignar() {
+    int r = 0;
+    for(auto item: jugadores)
+    {
+        r += item.obtenerNumEjercitos();
+    }
+}

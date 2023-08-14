@@ -27,10 +27,6 @@ private:
 
 
 
-
-
-
-
 public:
 
     // Construccion copia y operacion de asignacion eliminados
@@ -46,6 +42,8 @@ public:
     void setnJugadores(const std::string& n);
 
     int getnJugadores();
+
+    int ejercitosPorAsignar();
 
 
 };
