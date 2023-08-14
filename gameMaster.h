@@ -10,6 +10,10 @@
 #include "Jugador.h"
 #include "Mapa.h"
 
+
+
+
+
 class gameMaster {
 private:
     // Constructor privado para que no pueda ser llamado
@@ -20,6 +24,8 @@ private:
 
     //Numero de jugadores
     int nJugadores = 0;
+
+
 
 
 

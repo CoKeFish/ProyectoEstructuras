@@ -3,6 +3,7 @@
 //
 
 #include "NavMenu.h"
+#include "comandos/utilidadesRisk.h"
 
 void gotoxy(int x, int y) {
     COORD coord;
@@ -11,19 +12,7 @@ void gotoxy(int x, int y) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void ClearConsoleExceptFirstNLines(int n) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(hConsole, &csbi);
 
-    COORD topLeft = {0, static_cast<SHORT>(n)};
-    DWORD length = csbi.dwSize.X * (csbi.dwSize.Y - n);
-    DWORD written;
-
-    FillConsoleOutputCharacter(hConsole, ' ', length, topLeft, &written);
-    FillConsoleOutputAttribute(hConsole, csbi.wAttributes, length, topLeft, &written);
-    SetConsoleCursorPosition(hConsole, topLeft);
-}
 
 
 
@@ -111,8 +100,8 @@ MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
 
 
     while (true) {
-        ClearConsoleExceptFirstNLines(25);
-        gotoxy(0, 25);
+        ClearConsoleExceptFirstNLines(23);
+        gotoxy(0, 23);
 
         imprimirMenu(&this->menu, currentOption, this->pila, 0, excludeItems);
 
@@ -136,6 +125,7 @@ MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
                         this->pila.clear();
                         getFirstValidItem(this->currentMenu, excludeItems, currentOption);
 
+                        ClearConsoleExceptFirstNLines(20);
                         return r;
                     } else
                     {

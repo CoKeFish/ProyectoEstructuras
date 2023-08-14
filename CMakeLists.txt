@@ -17,5 +17,12 @@ add_executable(Proyecto main.cpp
         NavMenu.h
         NavMenu.h
         gameMaster.cpp
-        gameMaster.h)
+        gameMaster.h
+        GestorArchivos.cpp
+        GestorArchivos.h
+        comandos/ConfiguracionJuego.cpp
+        comandos/ConfiguracionJuego.h
+        comandos/utilidadesRisk.h
+        comandos/utilidadesRisk.cpp
+        Comandos.h)
 

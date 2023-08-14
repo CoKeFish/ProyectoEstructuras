@@ -58,7 +58,10 @@
 				5,
 				7,
 				9,
-				11
+				11,
+				13,
+				15,
+				18
 			]
 		}
 	],
@@ -101,7 +104,10 @@
 				5,
 				7,
 				9,
-				11
+				11,
+				13,
+				15,
+				18
 			]
 		},
 		{
@@ -113,7 +119,11 @@
 				6,
 				8,
 				10,
-				12
+				12,
+				14,
+				16,
+				17,
+				19
 			]
 		}
 	],
@@ -189,6 +199,44 @@
 		{
 			"backtrace" : 1,
 			"path" : "gameMaster.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "GestorArchivos.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "GestorArchivos.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "comandos/ConfiguracionJuego.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "comandos/ConfiguracionJuego.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "comandos/utilidadesRisk.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "comandos/utilidadesRisk.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Comandos.h",
 			"sourceGroupIndex" : 1
 		}
 	],

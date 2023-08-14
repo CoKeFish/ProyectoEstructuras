@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.26"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "Release",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Proyecto::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Proyecto-Release-1a308f11dff44f7a6fe4.json",
+					"jsonFile" : "target-Proyecto-Debug-ec4b2955bae1ddb51974.json",
 					"name" : "Proyecto",
 					"projectIndex" : 0
 				}
@@ -49,7 +49,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "G:/Otros ordenadores/Mi PC (1)/2303/Estructuras/Proyecto/cmake-build-release",
+		"build" : "G:/Otros ordenadores/Mi PC (1)/2303/Estructuras/Proyecto/cmake-build-debug",
 		"source" : "G:/Otros ordenadores/Mi PC (1)/2303/Estructuras/Proyecto"
 	},
 	"version" : 
