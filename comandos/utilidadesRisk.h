@@ -7,7 +7,9 @@
 
 /// Definir códigos de escape ANSI
 #include <string>
+#include <map>
 #include "../NavMenu.h"
+#include "../Territorio.h"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -136,10 +138,32 @@ inline NavMenu menuRisk = NavMenu({
                                    MenuItem("Australia", australia)
                            });
 
+/**
+ * @brief Limpia la consola excepto las primeras n líneas.
+ *
+ * @param n Número de líneas que no se borrarán, contando desde la primera.
+ */
+
 void ClearConsoleExceptFirstNLines(int n);
 
+/**
+ * @brief imprime una linea divisoria en la consola
+ */
 void separadorTextoConsola();
 
+/**
+ * @brief imprime en pantalla las instrucciones para jugar
+ */
 void mostrarInstruccionesConsola();
+
+
+inline std::map<Continente, string> continentes = {
+        {Continente::AFRICA, "África"},
+        {Continente::ASIA, "Asia"},
+        {Continente::EUROPA, "Europa"},
+        {Continente::NORTEAMERICA, "América del Norte"},
+        {Continente::OCEANIA, "Oceanía"},
+        {Continente::SUDAMERICA, "América del Sur"}
+};
 
 #endif //PROYECTO_UTILIDADESRISK_H

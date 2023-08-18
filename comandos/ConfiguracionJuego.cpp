@@ -19,6 +19,8 @@ void ConfiguracionJuego::inicializar()  {
 
     ingresarTerritoriosAJugadores();
 
+    asignarEjercitosJugadores();
+
 
 }
 
@@ -91,11 +93,13 @@ void ConfiguracionJuego::asignarEjercitosJugadores() {
 
     for(int i = 0; gameMaster::getInstance()->ejercitosPorAsignar(); i++)
     {
+        Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
 
+        std::vector<MenuItem*> TerritoriosExcluidos;
+        jugadorActual.menuTerritorios.getSelection(TerritoriosExcluidos);
     }
-    Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
 
 }
 
 
-
+//TODO falta implementar una funcion que genere un navMenu a partir de los territorios de los jugadores

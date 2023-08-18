@@ -9,6 +9,7 @@
 
 #include <list>
 #include "Territorio.h"
+#include "NavMenu.h"
 
 using namespace std;
 
@@ -35,7 +36,10 @@ private:
     //! Lista de territorios que posee el jugador.
     list<Territorio*> territorios;
 
+
+
 public:
+    NavMenu menuTerritorios = NavMenu(std::vector<MenuItem>());
 
 
     static int calcularEjercitosIniciales(int numero_jugadores);

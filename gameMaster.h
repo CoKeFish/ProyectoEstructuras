@@ -13,7 +13,10 @@
 
 
 
-
+/**
+ * @class gameMaster clase singleton que contiene la informacion del juego
+ * @brief Representa el juego en si
+ */
 class gameMaster {
 private:
     // Constructor privado para que no pueda ser llamado
@@ -31,18 +34,37 @@ public:
 
     // Construccion copia y operacion de asignacion eliminados
     gameMaster(const gameMaster&) = delete;
+
+    // Operador de asignacion eliminado
     gameMaster& operator=(const gameMaster&) = delete;
 
+    // Vector de jugadores
     std::vector<Jugador> jugadores;
+
+    // Mapa del juego
     Mapa mapa;
 
     // Método estático para acceder a la instancia
     static gameMaster* getInstance();
 
+    /**
+     * @brief Setter para el numero de jugadores
+     * @param n numero de jugadores
+     */
     void setnJugadores(const std::string& n);
 
+    /**
+     * @brief Getter para el numero de jugadores
+     * @return numero de jugadores
+     */
     int getnJugadores();
 
+    /**
+     * @brief Calcula el numero de ejercitos por asignar, el valor se calcula sumando el numero de ejercitos de cada jugador
+     * se usa para saber cuando se han asignado todos los ejercitos al inicio del juego, es decir cuando los jugadores
+     * estan eligiendo sus territorios
+     * @return numero de ejercitos por asignar
+     */
     int ejercitosPorAsignar();
 
 

@@ -83,5 +83,7 @@ public:
      * @param e Número de ejércitos a asignar.
      */
     void modificarEjercitos(int e);
+
+    std::string obtenerNombre();
 };
 #endif //PROYECTO_TERRITORIO_H

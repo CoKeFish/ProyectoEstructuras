@@ -42,3 +42,7 @@ void Territorio::modificarEjercitos(int e)
 Continente Territorio::obtenerContinente() {
     return this->continente;
 }
+
+std::string Territorio::obtenerNombre() {
+    return this->nombre;
+}
