@@ -15,7 +15,7 @@ std::string ConfiguracionJuego::inicializar()  {
     }
 
 
-    mensajeNJugadores();
+    /*mensajeNJugadores();
 
     gameMaster::getInstance()->setnJugadores(MenuJugadores.getSelection(false)->name);
 
@@ -23,9 +23,9 @@ std::string ConfiguracionJuego::inicializar()  {
 
     ingresarTerritoriosAJugadores();
 
-    asignarEjercitosJugadores();
+    asignarEjercitosJugadores();*/
 
-    //saltarConfiguracion();
+    saltarConfiguracion();
     gameMaster::getInstance()->faseJuego = FaseJuego::JuegoInicializado;
     gameMaster::getInstance()->setJugadorActual( &gameMaster::getInstance()->jugadores[0]);
 
@@ -54,7 +54,7 @@ void ConfiguracionJuego::ingresarJugadorYColor() {
             std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
             std::cout << "\n& ";
 
-            std::cin >> temp;
+            getline(std::cin, temp);
 
             ClearConsoleExceptFirstNLines(20);
 
@@ -63,7 +63,7 @@ void ConfiguracionJuego::ingresarJugadorYColor() {
         while (std::find_if(gameMaster::getInstance()->jugadores.begin(), gameMaster::getInstance()->jugadores.end(),
                             [&temp](const Jugador &j) {
                                 return j.obtenerNombre() == temp;
-                            }) != gameMaster::getInstance()->jugadores.end() || std::cin.peek() != '\n' || temp.length() < 2);
+                            }) != gameMaster::getInstance()->jugadores.end() || temp.find(' ') != std::string::npos || temp.length() < 2);
 
         std::string tempCoppy = temp;
         tempCoppy.resize(10, ' ');
