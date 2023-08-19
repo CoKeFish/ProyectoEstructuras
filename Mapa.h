@@ -77,10 +77,24 @@ private:
     };
 
 
+    /// Lista de nombres de territorios.
+    std::list<std::string> listaNombresTerritorios;
+
+
 
 
 public:
+
+
+    /**
+     * @brief Constructor de la clase Mapa.
+     * @param nombre nombre del territorio que se desea obtener.
+     * @return el Territorio con el nombre especificado.
+     */
     Territorio* obtenerTerritorio(const std::string& nombre);
+
+
+    std::list<std::string> obtenerListaNombresTerritorios();
 };
 
 

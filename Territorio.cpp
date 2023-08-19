@@ -46,3 +46,7 @@ Continente Territorio::obtenerContinente() {
 std::string Territorio::obtenerNombre() {
     return this->nombre;
 }
+
+int Territorio::obtenerNumEjercitos() {
+    return this->numEjercitos;
+}

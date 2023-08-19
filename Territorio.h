@@ -15,7 +15,7 @@
 
 // Declaración adelantada de la clase Jugador. <- No ponerlo da error :v
 class Jugador;
-
+enum class Continente;
 
 /**
  * @brief Representa un territorio dentro del juego.
@@ -80,5 +80,11 @@ public:
      * @return Nombre del territorio.
      */
     std::string obtenerNombre();
+
+    /**
+     * @brief Obtiene el número de ejércitos en el territorio.
+     * @return Número de ejércitos en el territorio.
+     */
+    int obtenerNumEjercitos();
 };
 #endif //PROYECTO_TERRITORIO_H

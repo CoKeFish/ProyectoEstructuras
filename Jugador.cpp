@@ -78,3 +78,60 @@ int Jugador::calcularEjercitosIniciales(int numero_jugadores) {
     }
 }
 
+void Jugador::mostrarInformacionJuego()
+{
+
+    std::string temp = nombre;
+    temp.resize(10, ' ');
+
+    system("cls");
+
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                             Información para " << BOLD << temp << RESET << "Quedan: "  << this->numEjercitos << " ejercitos por asignar                      " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << "     TERRITORIO       N EJERCITOS        TERRITORIO       N EJERCITOS         TERRITORIO       N EJERCITOS            " << RESET << BOLD << "|" << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "|                                                                                                                      |" << RESET << std::endl;
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << BOLD_OFF << RESET << std::endl;
+
+    int i = 0;
+    int j = 0;
+    for(auto &territorio : territorios)
+    {
+        temp = territorio->obtenerNombre();
+        temp.resize(20, ' ');
+        gotoxy(4 + 35*j, 5 + i);
+        std::cout << BOLD << temp;
+
+
+
+        temp = std::to_string( territorio->obtenerNumEjercitos());
+        temp.resize(2, ' ');
+        gotoxy(30 + 35*j, 5 + i++);
+        std::cout << BOLD << temp;
+
+        if(i == 13)
+        {
+            i = 0;
+            j++;
+        }
+
+    }
+    gotoxy(0, 20);
+
+
+}
+

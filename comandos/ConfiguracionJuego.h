@@ -48,7 +48,7 @@ public:
     /**
      * @brief inicia las estructuras de datos del juego necesarias para iniciar el juego
      */
-    void saltarConfiguracion();
+    static void saltarConfiguracion();
 };
 
 

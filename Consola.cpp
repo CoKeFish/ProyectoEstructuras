@@ -5,7 +5,6 @@
 
 #include "Consola.h"
 #include "NavMenu.h"
-#include "gameMaster.h"
 #include <limits>
 #include <string>
 #include "comandos/utilidadesRisk.h"
@@ -197,6 +196,10 @@ void Consola::iniciar() {
 
         std::cout << "\n$ ";
 
+        // Comprobar el siguiente carácter en el búfer
+        if (std::cin.peek() == '\n') {
+            std::cin.ignore();
+        }
         getline(std::cin, entradaComando);
         system("cls");
 
@@ -225,6 +228,11 @@ void Consola::iniciar() {
             if (it->second.argumentosValidos.find(argumentos.size()) != it->second.argumentosValidos.end())
             {
                 std::string salida = it->second.funcion(argumentos);
+
+                system("cls");
+                std::cout << riskLogo;
+                separadorTextoConsola();
+
                 std::cout << BOLD << GREEN << "\t" << salida << "\n" << RESET;
                 mostrarInstrucciones = true;
 

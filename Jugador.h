@@ -91,6 +91,15 @@ public:
      */
     int obtenerNumEjercitos() const;
 
+
+    /**
+     * @brief Imprime la información del juego en la consola.
+     * Imprime para un jugador dado su nombre, color, número de ejércitos que puede asignar
+     * y sus territorios, cuando se imprime el territorio tambien se imprime el número de ejércitos
+     * en dicho territorio.
+     */
+    void mostrarInformacionJuego();
+
     /**
      * @brief Obtiene el nombre del jugador.
      * @return Nombre del jugador.

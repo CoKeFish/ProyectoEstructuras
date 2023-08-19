@@ -37,3 +37,12 @@ void ClearConsoleExceptFirstNLines(int n) {
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes, length, topLeft, &written);
     SetConsoleCursorPosition(hConsole, topLeft);
 }
+
+
+void gotoxy(int x, int y) {
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+

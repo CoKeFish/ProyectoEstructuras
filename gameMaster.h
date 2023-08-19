@@ -10,7 +10,11 @@
 #include "Jugador.h"
 #include "Mapa.h"
 
-
+enum class FaseJuego {
+    JuegoNoInicializado,
+    JuegoInicializado,
+    Fortificacion
+};
 
 
 /**
@@ -31,6 +35,9 @@ private:
 
 
 public:
+
+    /// Fase del juego
+    FaseJuego faseJuego = FaseJuego::JuegoNoInicializado;
 
     /// Construccion copia y operacion de asignacion eliminados
     gameMaster(const gameMaster&) = delete;

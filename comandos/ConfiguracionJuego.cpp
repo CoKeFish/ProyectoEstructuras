@@ -8,7 +8,12 @@
 
 
 std::string ConfiguracionJuego::inicializar()  {
-/*
+
+    if(gameMaster::getInstance()->faseJuego == FaseJuego::JuegoInicializado)
+    {
+        return "Juego en curso";
+    }
+
 
     mensajeNJugadores();
 
@@ -20,10 +25,13 @@ std::string ConfiguracionJuego::inicializar()  {
 
     asignarEjercitosJugadores();
 
-    system("pause");
+    //saltarConfiguracion();
+    gameMaster::getInstance()->faseJuego = FaseJuego::JuegoInicializado;
 
-*/
-    return "menuPrincipal";
+    //gameMaster::getInstance()->jugadores[0].mostrarInformacionJuego();
+    //system("pause");
+
+    return "Inicialización satisfactoria";
 
 }
 
@@ -69,6 +77,7 @@ void ConfiguracionJuego::ingresarTerritoriosAJugadores() {
     for (int i = 0; i < 42; ++i) {
 
         Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
+        jugadorActual.mostrarInformacionJuego();
 
         if (jugadorActual.obtenerNumEjercitos() > 0) {
 
@@ -100,7 +109,47 @@ void ConfiguracionJuego::ingresarTerritoriosAJugadores() {
 }
 
 void ConfiguracionJuego::saltarConfiguracion() {
+    /// Se indica que habran 3 jugadores
+    gameMaster::getInstance()->setnJugadores("3 jugadores");
 
+    /// Se agregan los 3 jugadores al vector de jugadores, dandoles un nombre, color y ejercitos iniciales
+    gameMaster::getInstance()->jugadores.emplace_back("Jugador 1", "Rojo", Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
+    gameMaster::getInstance()->jugadores.emplace_back("Jugador 2", "Azul", Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
+    gameMaster::getInstance()->jugadores.emplace_back("Jugador 3", "Verde", Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
+
+    /// Se asignan los territorios a los jugadores recorriendo la lista con los nombre de los territorios y asignando un territorio a cada jugador
+    int i = 0;
+    for(auto &territorio : gameMaster::getInstance()->mapa.obtenerListaNombresTerritorios())
+    {
+        Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
+        jugadorActual.agregarTerritorio(gameMaster::getInstance()->mapa.obtenerTerritorio(territorio));
+        jugadorActual.asignarEjercitos(-1);
+        gameMaster::getInstance()->mapa.obtenerTerritorio(territorio)->asignarJugador(&jugadorActual);
+        gameMaster::getInstance()->mapa.obtenerTerritorio(territorio)->modificarEjercitos(1);
+        i++;
+    }
+
+    ///Habilitar para los jugadores los continentes donde tienen territorios
+    for(auto &jugador : gameMaster::getInstance()->jugadores)
+    {
+        for(auto &continente : jugador.menuTerritorios.menu)
+        {
+            continente.updateEnabledRecursive();
+        }
+    }
+
+    /// Se asignan los ejercitos restantes a los jugadores de acuerdo a los territorios que poseen, recorriendo los jugadores y luego los territorios
+    for(auto &jugador : gameMaster::getInstance()->jugadores)
+    {
+        while (jugador.obtenerNumEjercitos() > 0)
+        for(auto &territorio : jugador.obtenerTerritorios())
+        {
+            jugador.asignarEjercitos(-1);
+            territorio->modificarEjercitos(1);
+            if(jugador.obtenerNumEjercitos() == 0)
+                break;
+        }
+    }
 }
 
 void ConfiguracionJuego::asignarEjercitosJugadores() {
@@ -111,6 +160,9 @@ void ConfiguracionJuego::asignarEjercitosJugadores() {
     for(int i = 0; gameMaster::getInstance()->ejercitosPorAsignar(); i++)
     {
         Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
+        jugadorActual.mostrarInformacionJuego();
+
+
         if (jugadorActual.obtenerNumEjercitos() > 0) {
 
             temp = jugadorActual.obtenerNombre();

@@ -188,4 +188,11 @@ inline std::map<Continente, std::string> continentes = {
         {Continente::SUDAMERICA, "América del Sur"}
 };
 
+/**
+ * @brief Posiciona el cursor en la posición (x, y) de la consola.
+ * @param x coordenada x
+ * @param y coordenada y
+ */
+void gotoxy(int x, int y);
+
 #endif //PROYECTO_UTILIDADESRISK_H

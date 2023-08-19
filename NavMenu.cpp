@@ -5,17 +5,7 @@
 #include "NavMenu.h"
 #include "comandos/utilidadesRisk.h"
 
-/**
- * @brief Posiciona el cursor en la posición (x, y) de la consola.
- * @param x coordenada x
- * @param y coordenada y
- */
-void gotoxy(int x, int y) {
-    COORD coord;
-    coord.X = x;
-    coord.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
+
 
 
 NavMenu::NavMenu(std::vector<MenuItem> menu)
