@@ -9,7 +9,6 @@
 #include <string>
 #include <map>
 #include "../NavMenu.h"
-#include "../Territorio.h"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -133,10 +132,21 @@ inline NavMenu menuRisk = NavMenu({
                                    MenuItem("América del Norte", americaNorte),
                                    MenuItem("América del Sur", americaSur),
                                    MenuItem("Europa", europa),
+
                                    MenuItem("África", africa),
                                    MenuItem("Asia", asia),
                                    MenuItem("Australia", australia)
                            });
+
+inline const NavMenu menuRiskPlayerDefault = NavMenu({
+                                          MenuItem("América del Norte", false),
+                                          MenuItem("América del Sur", false),
+                                          MenuItem("Europa", false),
+
+                                          MenuItem("África", false),
+                                          MenuItem("Asia", false),
+                                          MenuItem("Australia", false)
+                                  });
 
 /**
  * @brief Limpia la consola excepto las primeras n líneas.
@@ -156,13 +166,25 @@ void separadorTextoConsola();
  */
 void mostrarInstruccionesConsola();
 
+/**
+ * @brief Enumeración de los continentes disponibles en el juego.
+ */
+enum class Continente {
+    AFRICA,       ///< África
+    ASIA,         ///< Asia
+    EUROPA,       ///< Europa
+    NORTEAMERICA, ///< Norteamérica
+    OCEANIA,      ///< Oceanía
+    SUDAMERICA    ///< Sudamérica
+};
 
-inline std::map<Continente, string> continentes = {
+inline std::map<Continente, std::string> continentes = {
         {Continente::AFRICA, "África"},
         {Continente::ASIA, "Asia"},
         {Continente::EUROPA, "Europa"},
+
         {Continente::NORTEAMERICA, "América del Norte"},
-        {Continente::OCEANIA, "Oceanía"},
+        {Continente::OCEANIA, "Australia"},
         {Continente::SUDAMERICA, "América del Sur"}
 };
 

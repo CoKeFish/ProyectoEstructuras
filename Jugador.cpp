@@ -16,13 +16,8 @@ Jugador::Jugador(string n, string color, int ejercitosIniciales)
 
 void Jugador::agregarTerritorio(Territorio* t) {
     territorios.push_back(t);
-    if(territorios.empty())
-    {
-        menuTerritorios.menu.emplace_back(continentes[t->obtenerContinente()]);
-        menuTerritorios.menu[0].subItems.emplace_back(t->obtenerNombre());
-        return;
-    }
-    for(auto continente : menuTerritorios.menu)
+
+    for(auto &continente : menuTerritorios.menu)
     {
         if(continente.name == continentes[t->obtenerContinente()])
         {

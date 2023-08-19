@@ -9,11 +9,9 @@
 
 void ConfiguracionJuego::inicializar()  {
 
-    std::vector<MenuItem*> a;
-
     mensajeNJugadores();
 
-    gameMaster::getInstance()->setnJugadores(MenuJugadores.getSelection(a)->name);
+    gameMaster::getInstance()->setnJugadores(MenuJugadores.getSelection(false)->name);
 
     ingresarJugadorYColor();
 
@@ -52,7 +50,7 @@ void ConfiguracionJuego::ingresarJugadorYColor() {
         std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
 
 
-        MenuItem* tempMenuItem = menuColores.getSelection(ColoresExcluidos);
+        MenuItem* tempMenuItem = menuColores.getSelection(true);
         gameMaster::getInstance()->jugadores.emplace_back(temp, tempMenuItem->name, Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
         ColoresExcluidos.push_back(tempMenuItem);
     }
@@ -73,7 +71,7 @@ void ConfiguracionJuego::ingresarTerritoriosAJugadores() {
             std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
 
 
-            MenuItem *tempMenuItem = menuRisk.getSelection(TerritoriosExcluidos);
+            MenuItem *tempMenuItem = menuRisk.getSelection(true);
             Territorio *territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(tempMenuItem->name);
             jugadorActual.agregarTerritorio(territorio);
             jugadorActual.asignarEjercitos(-1);
@@ -81,6 +79,14 @@ void ConfiguracionJuego::ingresarTerritoriosAJugadores() {
             territorio->modificarEjercitos(1);
 
             TerritoriosExcluidos.push_back(tempMenuItem);
+        }
+    }
+    ///Habilitar para los jugadores los continentes donde tienen territorios
+    for(auto &jugador : gameMaster::getInstance()->jugadores)
+    {
+        for(auto &continente : jugador.menuTerritorios.menu)
+        {
+            continente.updateEnabledRecursive();
         }
     }
 }
@@ -91,12 +97,21 @@ void ConfiguracionJuego::saltarConfiguracion() {
 
 void ConfiguracionJuego::asignarEjercitosJugadores() {
 
+    std::string temp;
     for(int i = 0; gameMaster::getInstance()->ejercitosPorAsignar(); i++)
     {
         Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
 
+        temp = jugadorActual.obtenerNombre();
+        temp.resize(10, ' ');
+
+        std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+        std::cout << BOLD << "|" << RESET << "                       " << BOLD << "Selecciona un territorio para colocar una infantería jugador " << temp << RESET << "                        " << BOLD << "|" << RESET << std::endl;
+        std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+
+
         std::vector<MenuItem*> TerritoriosExcluidos;
-        jugadorActual.menuTerritorios.getSelection(TerritoriosExcluidos);
+        jugadorActual.menuTerritorios.getSelection(true);
     }
 
 }

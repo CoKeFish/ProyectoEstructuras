@@ -10,6 +10,7 @@
 #include <list>
 #include "Territorio.h"
 #include "NavMenu.h"
+#include "comandos/utilidadesRisk.h"
 
 using namespace std;
 
@@ -39,7 +40,8 @@ private:
 
 
 public:
-    NavMenu menuTerritorios = NavMenu(std::vector<MenuItem>());
+
+    NavMenu menuTerritorios = menuRiskPlayerDefault;
 
 
     static int calcularEjercitosIniciales(int numero_jugadores);

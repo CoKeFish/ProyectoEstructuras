@@ -24,10 +24,10 @@ NavMenu::NavMenu(std::vector<MenuItem> menu)
 }
 
 
-void getNextValidItem(std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem>* currentMenu, std::vector<MenuItem*>& excludeItems) {
+void getNextValidItem(std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem>* currentMenu) {
     auto end = currentMenu->end();
-    auto it = std::find_if(currentOption+1, end, [&excludeItems](const MenuItem& item) {
-        return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+    auto it = std::find_if(currentOption+1, end, [](MenuItem& item) {
+        return item.enabled;
     });
 
     if (it != end) {
@@ -35,8 +35,8 @@ void getNextValidItem(std::vector<MenuItem>::iterator& currentOption, std::vecto
         return;
     } else {
         // If not found in the remainder of the vector, start from the beginning.
-        it = std::find_if(currentMenu->begin(), currentOption, [&excludeItems](const MenuItem& item) {
-            return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+        it = std::find_if(currentMenu->begin(), currentOption, [](MenuItem& item) {
+            return item.enabled;
         });
         if (it != currentOption) {
             currentOption = it;
@@ -46,12 +46,12 @@ void getNextValidItem(std::vector<MenuItem>::iterator& currentOption, std::vecto
 }
 
 
-void getPreviousValidItem(std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem>* currentMenu, std::vector<MenuItem*>& excludeItems) {
+void getPreviousValidItem(std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem>* currentMenu) {
     auto rcurrentOption = std::make_reverse_iterator(currentOption);
     auto rend = currentMenu->rend();
 
-    auto it = std::find_if(rcurrentOption, rend, [&excludeItems](const MenuItem &item) {
-        return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+    auto it = std::find_if(rcurrentOption, rend, [](MenuItem &item) {
+        return item.enabled;
     });
 
     if (it != rend) {
@@ -59,8 +59,8 @@ void getPreviousValidItem(std::vector<MenuItem>::iterator& currentOption, std::v
         return;
     } else {
         auto rbegin = currentMenu->rbegin();
-        it = std::find_if(rbegin, rcurrentOption, [&excludeItems](const MenuItem& item) {
-            return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+        it = std::find_if(rbegin, rcurrentOption, []( MenuItem& item) {
+            return item.enabled;
         });
         if (it != rcurrentOption) {
             currentOption = std::prev(it.base());
@@ -74,36 +74,38 @@ void getPreviousValidItem(std::vector<MenuItem>::iterator& currentOption, std::v
 
 
 
-void getFirstValidItem(std::vector<MenuItem>* menu, std::vector<MenuItem*>& excludeItems, std::vector<MenuItem>::iterator& currentOption) {
-    auto it = std::find_if(menu->begin(), menu->end(), [&excludeItems](MenuItem &item){
-        return std::find(excludeItems.begin(), excludeItems.end(), &item) == excludeItems.end();
+void getFirstValidItem(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& currentOption) {
+
+    auto it = std::find_if(menu->begin(), menu->end(), [](MenuItem &item){
+        return item.enabled;
     });
 
     // Verificamos si encontramos un elemento válido y si es diferente de currentOption.
-    if (it != menu->end() && it != currentOption) {
+    if (it != menu->end()) {
         currentOption = it;
     } else {
         // En caso de no encontrar un elemento válido o si es igual a currentOption,
         // avanzamos hasta el siguiente elemento válido.
-        getNextValidItem(currentOption, menu, excludeItems);
+        getNextValidItem(currentOption, menu);
     }
 }
 
 
 
 
-MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
+MenuItem* NavMenu::getSelection(bool excludeItemSelected)
 {
     HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
     INPUT_RECORD irInput;
     DWORD dwEventsRead;
 
+    getFirstValidItem(&this->menu, currentOption);
 
     while (true) {
         ClearConsoleExceptFirstNLines(23);
         gotoxy(0, 23);
 
-        imprimirMenu(&this->menu, currentOption, this->pila, 0, excludeItems);
+        imprimirMenu(&this->menu, currentOption, this->pila, 0);
 
 
         ReadConsoleInput(hInput, &irInput, 1, &dwEventsRead);
@@ -111,19 +113,26 @@ MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
         if (irInput.EventType == KEY_EVENT && irInput.Event.KeyEvent.bKeyDown) {
             switch (irInput.Event.KeyEvent.wVirtualKeyCode) {
                 case VK_UP:
-                    getPreviousValidItem(currentOption, this->currentMenu, excludeItems);
+                    getPreviousValidItem(currentOption, this->currentMenu);
                     break;
                 case VK_DOWN:
-                    getNextValidItem(currentOption, this->currentMenu, excludeItems);
+                    getNextValidItem(currentOption, this->currentMenu);
                     break;
                 case VK_RETURN:
                     if(currentOption->subItems.empty())
                     {
                         auto r = &(*currentOption);
 
+                        if(excludeItemSelected) {
+                            currentOption->enabled = false;
+                            for (auto& item: menu) {
+                                item.updateEnabledRecursive();
+                            }
+                        }
+
                         this->currentMenu = &this->menu;
                         this->pila.clear();
-                        getFirstValidItem(this->currentMenu, excludeItems, currentOption);
+                        getFirstValidItem(this->currentMenu, currentOption);
 
                         ClearConsoleExceptFirstNLines(20);
                         return r;
@@ -131,7 +140,7 @@ MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
                     {
                         this->currentMenu = &((*currentOption).subItems);
                         this->pila.push_back(&(*currentOption));
-                        getFirstValidItem(this->currentMenu, excludeItems, currentOption);
+                        getFirstValidItem(this->currentMenu, currentOption);
 
                     }
                     break;
@@ -145,6 +154,15 @@ MenuItem* NavMenu::getSelection(std::vector<MenuItem*>& excludeItems)
     }
 }
 
+NavMenu::NavMenu(const NavMenu& other)
+{
+    this->menu = other.menu; // Esto copia todos los MenuItem
+    this->currentMenu = &this->menu; // Ahora apunta al propio menu y no al del objeto copiado
+    this->currentOption = this->menu.begin(); // Lo mismo para el iterador
+    // Copia y/o ajusta otros miembros según sea necesario...
+}
+
+
 
 void tabs(int n)
 {
@@ -154,14 +172,12 @@ void tabs(int n)
     }
 }
 
-void imprimirMenu(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem*> pila, int nivel, const std::vector<MenuItem*>& excludeItems)
+void imprimirMenu(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem*> pila, int nivel)
 {
-    for (const auto& item: *menu) {
+    for (auto& item: *menu) {
 
-        // Verificar si el item está en la lista de exclusión
-        if(std::find(excludeItems.begin(), excludeItems.end(), &item) != excludeItems.end()) {
-            continue;  // Si está en la lista de exclusión, continuamos con el siguiente item
-        }
+        if(!item.enabled)
+            continue;
 
         if(&item == &(*currentOption))
         {
@@ -176,8 +192,37 @@ void imprimirMenu(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& 
         if(!pila.empty() && nivel >= 0 && nivel < pila.size())
         {
             if(&item == pila[nivel])
-                imprimirMenu(&pila[nivel]->subItems, currentOption, pila, nivel+1, excludeItems);
+                imprimirMenu(&pila[nivel]->subItems, currentOption, pila, nivel+1);
         }
     }
 }
 
+bool MenuItem::updateEnabledRecursive()  {
+
+    //Si no es un sub menu, si no una opcion devolvemos enabled
+    if(subItems.empty()) {
+        return enabled;
+    }
+
+    //Si es un submenu recorre todos los subitems
+    for (auto& subItem : subItems) {
+
+        //Si una de las opciones tiene un submenu, se llama recursivamente
+        if (!subItem.subItems.empty())
+        {
+            subItem.enabled = subItem.updateEnabledRecursive();
+
+        } else
+        {
+            //Si no tiene submenu, se actualiza enabled comprobando que la opcion tenga un enabled true
+            if (subItem.enabled)
+            {
+                enabled = true;
+                return enabled;
+            }
+        }
+
+    }
+    enabled = false;
+    return false;
+}

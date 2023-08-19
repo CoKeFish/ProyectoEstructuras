@@ -9,18 +9,9 @@
 #include <vector>
 #include <string>
 #include "Jugador.h"
+#include "comandos/utilidadesRisk.h"
 
-/**
- * @brief Enumeración de los continentes disponibles en el juego.
- */
-enum class Continente {
-    AFRICA,       ///< África
-    ASIA,         ///< Asia
-    EUROPA,       ///< Europa
-    NORTEAMERICA, ///< Norteamérica
-    OCEANIA,      ///< Oceanía
-    SUDAMERICA    ///< Sudamérica
-};
+
 
 // Declaración adelantada de la clase Jugador. <- No ponerlo da error :v
 class Jugador;

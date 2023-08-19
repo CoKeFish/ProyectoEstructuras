@@ -42,8 +42,9 @@ int gameMaster::getnJugadores() {
 
 int gameMaster::ejercitosPorAsignar() {
     int r = 0;
-    for(auto item: jugadores)
+    for(const auto& item: jugadores)
     {
         r += item.obtenerNumEjercitos();
     }
+    return r;
 }

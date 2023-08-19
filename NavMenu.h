@@ -20,18 +20,23 @@ void tabs(int n);
 class MenuItem {
 public:
     std::string name;
+    bool enabled = true;
     std::vector<MenuItem> subItems;
 
     explicit MenuItem(std::string n) : name(std::move(n)) {}
+    explicit MenuItem(std::string n, bool e) : name(std::move(n)), enabled(e) {}
     MenuItem(std::string n, std::vector<MenuItem> subs) : name(std::move(n)), subItems(std::move(subs)) {}
+
+
+    bool updateEnabledRecursive();
+
 };
 
-void imprimirMenu(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem*> pila, int nivel, const std::vector<MenuItem*>& excludeItems);
+void imprimirMenu(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem*> pila, int nivel);
 
 class NavMenu
 {
 public:
-    std::function<void(const std::vector<std::string>&)> funcion;
     std::vector<MenuItem> menu;
     std::vector<MenuItem*> pila;
     std::vector<MenuItem>* currentMenu;
@@ -39,8 +44,9 @@ public:
 
 public:
     explicit NavMenu(std::vector<MenuItem> menu);
+    NavMenu(const NavMenu& other);
 
-    MenuItem* getSelection(std::vector<MenuItem*>& excludeItems);
+    MenuItem* getSelection(bool excludeItemSelected);
 
 
 };
