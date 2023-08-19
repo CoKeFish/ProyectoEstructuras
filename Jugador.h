@@ -41,12 +41,24 @@ private:
 
 public:
 
+    /// Menu de territorios del jugador, se ira actualizando a medida que el jugador elija o conquiste territorios.
     NavMenu menuTerritorios = menuRiskPlayerDefault;
 
 
+    /**
+     * @brief Calcula el número de ejércitos iniciales que le corresponden a cada jugador.
+     * @param numero_jugadores Número de jugadores en la partida.
+     * @return Número de ejércitos iniciales que le corresponden a cada jugador.
+     */
     static int calcularEjercitosIniciales(int numero_jugadores);
 
 
+    /**
+     * @brief Sobrecarga del operador << para imprimir los datos de un jugador.
+     * @param os Flujo de salida.
+     * @param jugador Jugador a imprimir.
+     * @return Flujo de salida.
+     */
     friend std::ostream& operator<<(std::ostream& os, const Jugador& jugador);
 
     /**

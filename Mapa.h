@@ -10,8 +10,13 @@
 
 using namespace std;
 
+/**
+ * @brief Clase que representa el mapa del juego.
+ * @details Contiene un mapa de territorios, donde la clave es el nombre del territorio y el valor es el objeto Territorio.
+ */
 class Mapa {
 private:
+    /// Mapa de territorios.
     std::map<std::string, Territorio> territorios = {
 
             // ÁFRICA
@@ -75,7 +80,6 @@ private:
 
 
 public:
-    void inicializar();
     Territorio* obtenerTerritorio(const std::string& nombre);
 };
 

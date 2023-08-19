@@ -19,32 +19,32 @@
  */
 class gameMaster {
 private:
-    // Constructor privado para que no pueda ser llamado
+    /// Constructor privado para que no pueda ser llamado
     gameMaster() = default;
 
-    // Instancia estática
+    /// Instancia estática
     static gameMaster* instance;
 
-    //Numero de jugadores
+    ///Numero de jugadores
     int nJugadores = 0;
 
 
 
 public:
 
-    // Construccion copia y operacion de asignacion eliminados
+    /// Construccion copia y operacion de asignacion eliminados
     gameMaster(const gameMaster&) = delete;
 
-    // Operador de asignacion eliminado
+    /// Operador de asignacion eliminado
     gameMaster& operator=(const gameMaster&) = delete;
 
-    // Vector de jugadores
+    /// Vector de jugadores
     std::vector<Jugador> jugadores;
 
-    // Mapa del juego
+    /// Mapa del juego
     Mapa mapa;
 
-    // Método estático para acceder a la instancia
+    /// Método estático para acceder a la instancia
     static gameMaster* getInstance();
 
     /**
@@ -57,7 +57,7 @@ public:
      * @brief Getter para el numero de jugadores
      * @return numero de jugadores
      */
-    int getnJugadores();
+    int getnJugadores() const;
 
     /**
      * @brief Calcula el numero de ejercitos por asignar, el valor se calcula sumando el numero de ejercitos de cada jugador

@@ -75,6 +75,10 @@ public:
      */
     void modificarEjercitos(int e);
 
+    /**
+     * @brief Obtiene el nombre del territorio.
+     * @return Nombre del territorio.
+     */
     std::string obtenerNombre();
 };
 #endif //PROYECTO_TERRITORIO_H

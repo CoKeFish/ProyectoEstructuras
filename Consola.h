@@ -28,7 +28,7 @@
  */
 struct ComandoInfo {
     /// Función que se ejecutará cuando se invoque el comando.
-    std::function<void(const std::vector<std::string>&)> funcion;
+    std::function<std::string (const std::vector<std::string>&)> funcion;
 
 
     /// Conjunto de tamaños de argumentos válidos para el comando.

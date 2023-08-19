@@ -5,15 +5,17 @@
 #include "NavMenu.h"
 #include "comandos/utilidadesRisk.h"
 
+/**
+ * @brief Posiciona el cursor en la posición (x, y) de la consola.
+ * @param x coordenada x
+ * @param y coordenada y
+ */
 void gotoxy(int x, int y) {
     COORD coord;
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-
-
-
 
 
 NavMenu::NavMenu(std::vector<MenuItem> menu)
@@ -23,7 +25,11 @@ NavMenu::NavMenu(std::vector<MenuItem> menu)
     this->currentOption = this->menu.begin();
 }
 
-
+/**
+ * @brief Obtiene el siguiente elemento válido de un menú dado un iterador al elemento actual.
+ * @param currentOption opción actual a partir de la cual se buscará la siguiente opción válida.
+ * @param currentMenu menu o submenú en el que se buscará la siguiente opción válida.
+ */
 void getNextValidItem(std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem>* currentMenu) {
     auto end = currentMenu->end();
     auto it = std::find_if(currentOption+1, end, [](MenuItem& item) {
@@ -45,7 +51,11 @@ void getNextValidItem(std::vector<MenuItem>::iterator& currentOption, std::vecto
     }
 }
 
-
+/**
+ * @brief Obtiene el elemento anterior válido de un menú dado un iterador al elemento actual.
+ * @param currentOption opción actual a partir de la cual se buscará la opción anterior válida.
+ * @param currentMenu menu o submenú en el que se buscará la opción anterior válida.
+ */
 void getPreviousValidItem(std::vector<MenuItem>::iterator& currentOption, std::vector<MenuItem>* currentMenu) {
     auto rcurrentOption = std::make_reverse_iterator(currentOption);
     auto rend = currentMenu->rend();
@@ -70,10 +80,11 @@ void getPreviousValidItem(std::vector<MenuItem>::iterator& currentOption, std::v
 }
 
 
-
-
-
-
+/**
+ * @brief Obtiene el primer elemento válido de un menú dado un iterador al elemento actual.
+ * @param menu menu o submenú en el que se buscará la opción anterior válida.
+ * @param currentOption opción actual a partir de la cual se buscará la opción anterior válida.
+ */
 void getFirstValidItem(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& currentOption) {
 
     auto it = std::find_if(menu->begin(), menu->end(), [](MenuItem &item){
@@ -102,6 +113,7 @@ MenuItem* NavMenu::getSelection(bool excludeItemSelected)
     getFirstValidItem(&this->menu, currentOption);
 
     while (true) {
+
         ClearConsoleExceptFirstNLines(23);
         gotoxy(0, 23);
 
@@ -119,10 +131,13 @@ MenuItem* NavMenu::getSelection(bool excludeItemSelected)
                     getNextValidItem(currentOption, this->currentMenu);
                     break;
                 case VK_RETURN:
+
+                    //Si es una opcion, devolvemos el puntero a la opcion
                     if(currentOption->subItems.empty())
                     {
                         auto r = &(*currentOption);
 
+                        //Si excludeItemSelected es true, deshabilitamos la opcion seleccionada y actualizamos el atributo enabled de todos los submenus
                         if(excludeItemSelected) {
                             currentOption->enabled = false;
                             for (auto& item: menu) {
@@ -136,7 +151,7 @@ MenuItem* NavMenu::getSelection(bool excludeItemSelected)
 
                         ClearConsoleExceptFirstNLines(20);
                         return r;
-                    } else
+                    } else //Si es un submenu, actualizamos el menu actual y el currentOption
                     {
                         this->currentMenu = &((*currentOption).subItems);
                         this->pila.push_back(&(*currentOption));
@@ -147,19 +162,19 @@ MenuItem* NavMenu::getSelection(bool excludeItemSelected)
                 case VK_BACK:
                     this->currentMenu = &this->menu;
                     this->pila.clear();
-                    currentOption = this->currentMenu->begin();
+                    getFirstValidItem(this->currentMenu, currentOption);
             }
         }
 
     }
 }
 
+
 NavMenu::NavMenu(const NavMenu& other)
 {
     this->menu = other.menu; // Esto copia todos los MenuItem
     this->currentMenu = &this->menu; // Ahora apunta al propio menu y no al del objeto copiado
     this->currentOption = this->menu.begin(); // Lo mismo para el iterador
-    // Copia y/o ajusta otros miembros según sea necesario...
 }
 
 
@@ -176,21 +191,26 @@ void imprimirMenu(std::vector<MenuItem>* menu, std::vector<MenuItem>::iterator& 
 {
     for (auto& item: *menu) {
 
+        //Si la opcion esta deshabilitada, no la imprimimos
         if(!item.enabled)
             continue;
 
+        //Si es la opcion seleccionada, la imprimimos con un > al principio y al final
         if(&item == &(*currentOption))
         {
             tabs(nivel);
             std::cout << "> " << item.name << " <" << std::endl;
         }
+        //Si no es la opcion seleccionada, la imprimimos normal
         else
         {
             tabs(nivel);
             std::cout << "  " << item.name << "  " << std::endl;
         }
+        //Si un submenu fue seleccionado, imprimimos el submenu
         if(!pila.empty() && nivel >= 0 && nivel < pila.size())
         {
+            //iteramos sobre el submenu y si la opcion actual es igual a la opcion del submenu, imprimimos el submenu
             if(&item == pila[nivel])
                 imprimirMenu(&pila[nivel]->subItems, currentOption, pila, nivel+1);
         }

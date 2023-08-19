@@ -15,8 +15,10 @@ Jugador::Jugador(string n, string color, int ejercitosIniciales)
 }
 
 void Jugador::agregarTerritorio(Territorio* t) {
+    /// Se agrega el territorio a la lista de territorios del jugador.
     territorios.push_back(t);
 
+    /// Buscamos el continente al que pertenece el territorio y lo agregamos al menu de territorios del jugador.
     for(auto &continente : menuTerritorios.menu)
     {
         if(continente.name == continentes[t->obtenerContinente()])
@@ -25,8 +27,8 @@ void Jugador::agregarTerritorio(Territorio* t) {
             return;
         }
     }
-    menuTerritorios.menu.emplace_back(continentes[t->obtenerContinente()]);
-    menuTerritorios.menu[menuTerritorios.menu.size()-1].subItems.emplace_back(t->obtenerNombre());
+    throw std::runtime_error( "No se encontró el continente al que pertenece el territorio, esto no debería pasar.");
+
 
 }
 
@@ -50,6 +52,8 @@ list<Territorio*> Jugador::obtenerTerritorios() {
     return territorios;
 }
 
+
+/// Sobrecarga del operador << para imprimir los datos de un jugador
 std::ostream& operator<<(std::ostream& os, const Jugador& jugador) {
     os << "Nombre: " << jugador.nombre << "\n";
     os << "Color: " << jugador.color << "\n";

@@ -7,7 +7,7 @@
 #include "utilidadesRisk.h"
 
 
-void ConfiguracionJuego::inicializar()  {
+std::string ConfiguracionJuego::inicializar()  {
 /*
 
     mensajeNJugadores();
@@ -23,6 +23,7 @@ void ConfiguracionJuego::inicializar()  {
     system("pause");
 
 */
+    return "menuPrincipal";
 
 }
 
@@ -35,7 +36,6 @@ void ConfiguracionJuego::mensajeNJugadores() {
 }
 
 void ConfiguracionJuego::ingresarJugadorYColor() {
-    std::vector<MenuItem*> ColoresExcluidos;
     std::string temp;
     for (int i = 0; i < gameMaster::getInstance()->getnJugadores(); ++i) {
 
@@ -55,16 +55,21 @@ void ConfiguracionJuego::ingresarJugadorYColor() {
 
 
         MenuItem* tempMenuItem = menuColores.getSelection(true);
+        /// Agregar el jugador al vector de jugadores, con el color y nombre seleccionados ademas calcula los ejercitos iniciales y los asigna
         gameMaster::getInstance()->jugadores.emplace_back(temp, tempMenuItem->name, Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
-        ColoresExcluidos.push_back(tempMenuItem);
+
+        //TODO: Verificar que no se repita el nombre del jugador
     }
 }
 
 void ConfiguracionJuego::ingresarTerritoriosAJugadores() {
+
     std::string temp;
-    std::vector<MenuItem*> TerritoriosExcluidos;
+    /// Se asignan los territorios a los jugadores son en total 42 territorios
     for (int i = 0; i < 42; ++i) {
+
         Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
+
         if (jugadorActual.obtenerNumEjercitos() > 0) {
 
             temp = jugadorActual.obtenerNombre();
@@ -74,7 +79,7 @@ void ConfiguracionJuego::ingresarTerritoriosAJugadores() {
             std::cout << BOLD << "|" << RESET << "                       " << BOLD << "Selecciona un territorio para colocar una infantería jugador " << temp << RESET << "                        " << BOLD << "|" << RESET << std::endl;
             std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
 
-
+            /// Seleccionar un territorio
             MenuItem *tempMenuItem = menuRisk.getSelection(true);
             Territorio *territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(tempMenuItem->name);
             jugadorActual.agregarTerritorio(territorio);
@@ -82,7 +87,6 @@ void ConfiguracionJuego::ingresarTerritoriosAJugadores() {
             territorio->asignarJugador(&jugadorActual);
             territorio->modificarEjercitos(1);
 
-            TerritoriosExcluidos.push_back(tempMenuItem);
         }
     }
     ///Habilitar para los jugadores los continentes donde tienen territorios
@@ -102,6 +106,8 @@ void ConfiguracionJuego::saltarConfiguracion() {
 void ConfiguracionJuego::asignarEjercitosJugadores() {
 
     std::string temp;
+
+    /// Se asignan los ejercitos restantes a los jugadores de acuerdo a los territorios que poseen
     for(int i = 0; gameMaster::getInstance()->ejercitosPorAsignar(); i++)
     {
         Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
@@ -132,5 +138,3 @@ void ConfiguracionJuego::asignarEjercitosJugadores() {
 
 }
 
-
-//TODO falta implementar una funcion que genere un navMenu a partir de los territorios de los jugadores
