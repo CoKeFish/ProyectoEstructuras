@@ -11,7 +11,7 @@ std::string ConfiguracionJuego::inicializar()  {
 
     if(gameMaster::getInstance()->faseJuego == FaseJuego::JuegoInicializado)
     {
-        return "Juego en curso";
+        return "El juego ya ha sido inicializado.";
     }
 
 
@@ -27,11 +27,9 @@ std::string ConfiguracionJuego::inicializar()  {
 
     //saltarConfiguracion();
     gameMaster::getInstance()->faseJuego = FaseJuego::JuegoInicializado;
+    gameMaster::getInstance()->setJugadorActual( &gameMaster::getInstance()->jugadores[0]);
 
-    //gameMaster::getInstance()->jugadores[0].mostrarInformacionJuego();
-    //system("pause");
-
-    return "Inicialización satisfactoria";
+    return "El juego se ha inicializado correctamente.";
 
 }
 
@@ -47,16 +45,29 @@ void ConfiguracionJuego::ingresarJugadorYColor() {
     std::string temp;
     for (int i = 0; i < gameMaster::getInstance()->getnJugadores(); ++i) {
 
-        std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
-        std::cout << BOLD << "|" << RESET << "                                           " << BOLD << "  Ingresa el nombre del " << i + 1<< " jugador:" << RESET << "                                         " << BOLD << "|" << RESET << std::endl;
-        std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
-        std::cout << "\n& ";
+        do {
 
-        std::cin >> temp;
+            std::cin.clear();
+
+            std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+            std::cout << BOLD << "|" << RESET << "                                           " << BOLD << "  Ingresa el nombre del " << i + 1<< " jugador:" << RESET << "                                         " << BOLD << "|" << RESET << std::endl;
+            std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+            std::cout << "\n& ";
+
+            std::cin >> temp;
+
+            ClearConsoleExceptFirstNLines(20);
+
+        }
+        ///Mientras el jugador este repetido o contenga espacios en blanco se repite el ciclo, recordando que pueden quedar datos en el buffer y la longitud del nombre es de mas de 1 caracteres
+        while (std::find_if(gameMaster::getInstance()->jugadores.begin(), gameMaster::getInstance()->jugadores.end(),
+                            [&temp](const Jugador &j) {
+                                return j.obtenerNombre() == temp;
+                            }) != gameMaster::getInstance()->jugadores.end() || std::cin.peek() != '\n' || temp.length() < 2);
+
         std::string tempCoppy = temp;
         tempCoppy.resize(10, ' ');
 
-        ClearConsoleExceptFirstNLines(20);
         std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
         std::cout << BOLD << "|" << RESET << "                                          " << BOLD << "Seleccione el color para " << tempCoppy << RESET << "                                         " << BOLD << "|" << RESET << std::endl;
         std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
@@ -113,9 +124,9 @@ void ConfiguracionJuego::saltarConfiguracion() {
     gameMaster::getInstance()->setnJugadores("3 jugadores");
 
     /// Se agregan los 3 jugadores al vector de jugadores, dandoles un nombre, color y ejercitos iniciales
-    gameMaster::getInstance()->jugadores.emplace_back("Jugador 1", "Rojo", Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
-    gameMaster::getInstance()->jugadores.emplace_back("Jugador 2", "Azul", Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
-    gameMaster::getInstance()->jugadores.emplace_back("Jugador 3", "Verde", Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
+    gameMaster::getInstance()->jugadores.emplace_back("Jugador_1", "Rojo", Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
+    gameMaster::getInstance()->jugadores.emplace_back("Jugador_2", "Azul", Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
+    gameMaster::getInstance()->jugadores.emplace_back("Jugador_3", "Verde", Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
 
     /// Se asignan los territorios a los jugadores recorriendo la lista con los nombre de los territorios y asignando un territorio a cada jugador
     int i = 0;

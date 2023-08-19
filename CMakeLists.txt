@@ -24,5 +24,7 @@ add_executable(Proyecto main.cpp
         comandos/ConfiguracionJuego.h
         comandos/utilidadesRisk.h
         comandos/utilidadesRisk.cpp
-        Comandos.h)
+        Comandos.h
+        comandos/Turno.cpp
+        comandos/Turno.h)
 

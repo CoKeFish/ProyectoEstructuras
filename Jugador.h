@@ -104,7 +104,7 @@ public:
      * @brief Obtiene el nombre del jugador.
      * @return Nombre del jugador.
      */
-    string obtenerNombre();
+    std::string obtenerNombre() const;
 
     /**
      * @brief Obtiene la lista de territorios que posee el jugador.

@@ -25,6 +25,7 @@ void Consola::mostrarAyuda() {
     std::cout << "\n";
 }
 
+
 void Consola::mostrarAyuda(const std::string &comando) {
     /// Muestra la información de un comando específico.
 
@@ -92,8 +93,11 @@ Consola::Consola() {
 
     comandos["turno"] = {
             [this](const std::vector<std::string> &args) {
-                std::cout << "Comando no implementado: turno" << std::endl;
-                return "";
+                std::string r;
+                if (!args.empty())
+                    r = Turno::iniciarTurno(args[0]);
+
+                return r;
             },
             {1},
             "Realiza las operaciones descritas dentro del turno de un jugador (obtener nuevas unidades,\n"
@@ -174,9 +178,6 @@ void cambiarTamanoBufferYVentana(short anchoBuffer, short altoBuffer, short anch
 }
 
 
-
-
-
 void Consola::iniciar() {
 
     std::string entradaComando; ///Aqui se guarda el comando que ingresa el usuario
@@ -198,7 +199,7 @@ void Consola::iniciar() {
 
         // Comprobar el siguiente carácter en el búfer
         if (std::cin.peek() == '\n') {
-            std::cin.ignore();
+            std::cin.clear();
         }
         getline(std::cin, entradaComando);
         system("cls");
@@ -239,7 +240,8 @@ void Consola::iniciar() {
             }
             else
             {
-                std::cout << "Número incorrecto de argumentos para el comando " << comando << ".\n";
+                std::cout << BOLD << RED << "\tNúmero incorrecto de argumentos para el comando " << comando << ".\n" << RESET;
+                mostrarInstrucciones = true;
             }
         }
         else

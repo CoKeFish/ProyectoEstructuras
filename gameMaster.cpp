@@ -55,3 +55,11 @@ int gameMaster::ejercitosPorAsignar() {
     }
     return r;
 }
+
+void gameMaster::setJugadorActual(Jugador *jugador) {
+    jugadorActual = jugador;
+}
+
+Jugador *gameMaster::getJugadorActual() {
+    return jugadorActual;
+}

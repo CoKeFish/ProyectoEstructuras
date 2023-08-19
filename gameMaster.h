@@ -13,6 +13,7 @@
 enum class FaseJuego {
     JuegoNoInicializado,
     JuegoInicializado,
+    JuegoTerminado,
     Fortificacion
 };
 
@@ -31,6 +32,9 @@ private:
 
     ///Numero de jugadores
     int nJugadores = 0;
+
+    ///Jugador actual (con el turno)
+    Jugador* jugadorActual = nullptr;
 
 
 
@@ -73,6 +77,25 @@ public:
      * @return numero de ejercitos por asignar
      */
     int ejercitosPorAsignar();
+
+
+    /**
+     * @brief asigna el jugador actual
+     * @param jugador puntero al jugador actual
+     */
+    void setJugadorActual(Jugador* jugador);
+
+
+    /**
+     * @brief obtiene el jugador actual
+     * @return puntero al jugador actual
+     */
+    Jugador* getJugadorActual();
+
+    /**
+     * @brief pasa el turno al siguiente jugador
+     */
+    void siguienteTurno();
 
 
 };

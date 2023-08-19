@@ -44,7 +44,7 @@ int Jugador::obtenerNumEjercitos() const {
     return numEjercitos;
 }
 
-string Jugador::obtenerNombre() {
+string Jugador::obtenerNombre() const{
     return nombre;
 }
 

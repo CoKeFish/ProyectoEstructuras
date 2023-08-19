@@ -6,5 +6,6 @@
 #define PROYECTO_COMANDOS_H
 
 #include "comandos/ConfiguracionJuego.h"
+#include "comandos/Turno.h"
 
 #endif //PROYECTO_COMANDOS_H
