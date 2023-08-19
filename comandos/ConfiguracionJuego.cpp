@@ -77,7 +77,6 @@ void ConfiguracionJuego::ingresarJugadorYColor() {
         /// Agregar el jugador al vector de jugadores, con el color y nombre seleccionados ademas calcula los ejercitos iniciales y los asigna
         gameMaster::getInstance()->jugadores.emplace_back(temp, tempMenuItem->name, Jugador::calcularEjercitosIniciales(gameMaster::getInstance()->getnJugadores()));
 
-        //TODO: Verificar que no se repita el nombre del jugador
     }
 }
 
