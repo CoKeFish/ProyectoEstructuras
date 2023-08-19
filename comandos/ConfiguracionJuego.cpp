@@ -8,6 +8,7 @@
 
 
 void ConfiguracionJuego::inicializar()  {
+/*
 
     mensajeNJugadores();
 
@@ -19,6 +20,9 @@ void ConfiguracionJuego::inicializar()  {
 
     asignarEjercitosJugadores();
 
+    system("pause");
+
+*/
 
 }
 
@@ -101,17 +105,29 @@ void ConfiguracionJuego::asignarEjercitosJugadores() {
     for(int i = 0; gameMaster::getInstance()->ejercitosPorAsignar(); i++)
     {
         Jugador &jugadorActual = gameMaster::getInstance()->jugadores[i % gameMaster::getInstance()->getnJugadores()];
+        if (jugadorActual.obtenerNumEjercitos() > 0) {
 
-        temp = jugadorActual.obtenerNombre();
-        temp.resize(10, ' ');
+            temp = jugadorActual.obtenerNombre();
+            temp.resize(10, ' ');
 
-        std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
-        std::cout << BOLD << "|" << RESET << "                       " << BOLD << "Selecciona un territorio para colocar una infantería jugador " << temp << RESET << "                        " << BOLD << "|" << RESET << std::endl;
-        std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+            std::cout << BOLD
+                      << "+----------------------------------------------------------------------------------------------------------------------+"
+                      << RESET << std::endl;
+            std::cout << BOLD << "|" << RESET << "                       " << BOLD
+                      << "Selecciona un territorio para colocar una infantería jugador " << temp << RESET
+                      << "                        " << BOLD << "|" << RESET << std::endl;
+            std::cout << BOLD << "+" << BOLD_OFF
+                      << "----------------------------------------------------------------------------------------------------------------------+"
+                      << RESET << std::endl;
 
 
-        std::vector<MenuItem*> TerritoriosExcluidos;
-        jugadorActual.menuTerritorios.getSelection(true);
+            MenuItem *tempMenuItem = jugadorActual.menuTerritorios.getSelection(false);
+
+            Territorio *territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(tempMenuItem->name);
+
+            jugadorActual.asignarEjercitos(-1);
+            territorio->modificarEjercitos(1);
+        }
     }
 
 }

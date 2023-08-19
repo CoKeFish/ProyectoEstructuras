@@ -190,6 +190,9 @@ void Consola::iniciar() {
         if (it != comandos.end()) {
             if (it->second.argumentosValidos.find(argumentos.size()) != it->second.argumentosValidos.end()) {
                 it->second.funcion(argumentos);
+
+
+
             } else {
                 std::cout << "Número incorrecto de argumentos para el comando " << comando << ".\n";
             }
