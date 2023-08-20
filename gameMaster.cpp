@@ -63,3 +63,28 @@ void gameMaster::setJugadorActual(Jugador *jugador) {
 Jugador *gameMaster::getJugadorActual() {
     return jugadorActual;
 }
+
+void gameMaster::aumentarGrupoCartasIntercambiadas() {
+    grupoCartasIntercambiadas++;
+
+}
+
+int gameMaster::unidadesIntercambioCartas() const {
+    if (grupoCartasIntercambiadas < 5)
+    {
+        return grupoCartasIntercambiadas * 2 + 4;
+    }
+    else
+    {
+        return 15 + (grupoCartasIntercambiadas - 5) * 5;
+    }
+}
+///Se encarga de actualizar el jugador actual
+void gameMaster::siguienteTurno() {
+
+    jugadorActual++;
+    if(jugadorActual == &jugadores.back() + 1)
+    {
+        jugadorActual = &*jugadores.begin();
+    }
+}

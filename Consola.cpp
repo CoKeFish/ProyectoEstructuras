@@ -23,6 +23,7 @@ void Consola::mostrarAyuda() {
         std::cout << BOLD << MAGENTA << "   - " << RESET << comando << "\n";
     }
     std::cout << "\n";
+    system("pause");
 }
 
 
@@ -55,6 +56,7 @@ void Consola::mostrarAyuda(const std::string &comando) {
                   << "' no es reconocido. Escribe 'ayuda' para ver una lista de comandos.\n" << RESET;
         mostrarInstrucciones = true;
     }
+    system("pause");
 }
 
 

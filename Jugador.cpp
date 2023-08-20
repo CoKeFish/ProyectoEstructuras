@@ -135,3 +135,7 @@ void Jugador::mostrarInformacionJuego()
 
 }
 
+std::list<Carta>* Jugador::obtenerCartas() {
+    return &cartas;
+}
+

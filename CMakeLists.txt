@@ -26,5 +26,9 @@ add_executable(Proyecto main.cpp
         comandos/utilidadesRisk.cpp
         Comandos.h
         comandos/Turno.cpp
-        comandos/Turno.h)
+        comandos/Turno.h
+        Carta.cpp
+        Carta.h
+        Mazo.cpp
+        Mazo.h)
 

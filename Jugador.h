@@ -11,6 +11,7 @@
 #include "Territorio.h"
 #include "NavMenu.h"
 #include "comandos/utilidadesRisk.h"
+#include "Carta.h"
 
 using namespace std;
 
@@ -36,6 +37,9 @@ private:
 
     //! Lista de territorios que posee el jugador.
     list<Territorio*> territorios;
+
+    /// Lista de cartas que posee el jugador.
+    std::list<Carta> cartas;
 
 
 
@@ -111,6 +115,11 @@ public:
      * @return Lista de territorios que el jugador tiene.
      */
     list<Territorio*> obtenerTerritorios();
+
+    /**
+     * @brief obtenerCartas
+     */
+    std::list<Carta>* obtenerCartas();
 };
 
 

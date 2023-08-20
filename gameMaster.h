@@ -9,7 +9,11 @@
 #include <iostream>
 #include "Jugador.h"
 #include "Mapa.h"
+#include "Mazo.h"
 
+/**
+ * @brief Enumeracion de las fases del juego
+ */
 enum class FaseJuego {
     JuegoNoInicializado,
     JuegoInicializado,
@@ -36,9 +40,14 @@ private:
     ///Jugador actual (con el turno)
     Jugador* jugadorActual = nullptr;
 
+    ///Grupo de cartas intercambiadas
+    int grupoCartasIntercambiadas = 0;
+
 
 
 public:
+
+
 
     /// Fase del juego
     FaseJuego faseJuego = FaseJuego::JuegoNoInicializado;
@@ -54,6 +63,15 @@ public:
 
     /// Mapa del juego
     Mapa mapa;
+
+    ///Mazo del juego
+    Mazo mazo = Mazo(mapa.obtenerListaNombresTerritorios());
+
+    ///Aumenta el numero de grupos de cartas intercambiadas
+    void aumentarGrupoCartasIntercambiadas();
+
+    ///Unidades que se le asignan al jugador actual al intercambiar cartas
+    [[nodiscard]] int unidadesIntercambioCartas() const;
 
     /// Método estático para acceder a la instancia
     static gameMaster* getInstance();

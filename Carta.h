@@ -13,7 +13,8 @@
 enum class TipoEjercito {
     INFANTERIA,
     CABALLERIA,
-    ARTILLERIA
+    ARTILLERIA,
+    COMODIN
 };
 
 /**
