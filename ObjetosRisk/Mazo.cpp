@@ -4,30 +4,33 @@
 
 #include "Mazo.h"
 #include <random>
+#include "gameMaster.h"
 
-Mazo::Mazo(const std::list<std::string>& territorios) {
+
+Mazo::Mazo(const std::list<std::string>& territorios)
+{
     for (const auto& nombre : territorios) {
         // Asumiendo que cada territorio tiene una carta de cada tipo.
-        // Aquí solo estamos creando un mazo de cartas, puedes ajustar la lógica según tus necesidades.
-        mazo.emplace_back(gameMaster::getInstance()->mapa.obtenerTerritorio(nombre), TipoEjercito::INFANTERIA);
-        mazo.emplace_back(gameMaster::getInstance()->mapa.obtenerTerritorio(nombre), TipoEjercito::CABALLERIA);
-        mazo.emplace_back(gameMaster::getInstance()->mapa.obtenerTerritorio(nombre), TipoEjercito::ARTILLERIA);
+        // Aquí solo estamos creando un cartas de cartas, puedes ajustar la lógica según tus necesidades.
+        cartas.emplace_back(gameMaster::getInstance()->mapa.obtenerTerritorio(nombre), TipoEjercito::INFANTERIA);
+        cartas.emplace_back(gameMaster::getInstance()->mapa.obtenerTerritorio(nombre), TipoEjercito::CABALLERIA);
+        cartas.emplace_back(gameMaster::getInstance()->mapa.obtenerTerritorio(nombre), TipoEjercito::ARTILLERIA);
     }
     /// Agregamos los comodines
-    mazo.emplace_back(nullptr, TipoEjercito::COMODIN);
-    mazo.emplace_back(nullptr, TipoEjercito::COMODIN);
+    cartas.emplace_back(nullptr, TipoEjercito::COMODIN);
+    cartas.emplace_back(nullptr, TipoEjercito::COMODIN);
 
-    /// Barajamos el mazo
-    std::vector<Carta> vecMazo(mazo.begin(), mazo.end());
+    /// Barajamos el cartas
+    std::vector<Carta> vecMazo(cartas.begin(), cartas.end());
     std::shuffle(vecMazo.begin(), vecMazo.end(), std::mt19937(std::random_device()()));
-    mazo.assign(vecMazo.begin(), vecMazo.end());
+    cartas.assign(vecMazo.begin(), vecMazo.end());
 
 }
 
 
 void Mazo::barajarMazo() {
-    std::vector<Carta> vecMazo(mazo.begin(), mazo.end());
+    std::vector<Carta> vecMazo(cartas.begin(), cartas.end());
     std::shuffle(vecMazo.begin(), vecMazo.end(), std::mt19937(std::random_device()()));
-    mazo.assign(vecMazo.begin(), vecMazo.end());
+    cartas.assign(vecMazo.begin(), vecMazo.end());
 }
 

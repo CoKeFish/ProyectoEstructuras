@@ -6,19 +6,21 @@
 #define PROYECTO_MAZO_H
 
 #include "Carta.h"
-#include "gameMaster.h"
+#include <list>
+#include <string>
 
 /**
- * @brief Clase que representa el mazo de cartas
+ * @brief Clase que representa el cartas de cartas
  */
 class Mazo {
 
 
 public:
 
-    /// Lista de cartas que conforman el mazo
-    std::list<Carta> mazo;
+    /// Lista de cartas que conforman el cartas
+    std::list<Carta> cartas;
 
+    Mazo() = default;
 
     /**
      * @brief Constructor de la clase Mazo
@@ -27,12 +29,8 @@ public:
     explicit Mazo(const std::list<std::string>& territorios);
 
 
-
-private:
-
-
     /**
-     * @brief Baraja el mazo
+     * @brief Baraja el cartas
      */
     void barajarMazo();
 

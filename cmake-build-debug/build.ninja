@@ -55,77 +55,77 @@ build CMakeFiles/Proyecto.dir/main.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Deb
   OBJECT_DIR = CMakeFiles\Proyecto.dir
   OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
 
-build CMakeFiles/Proyecto.dir/Territorio.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Territorio.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\Territorio.cpp.obj.d
+build CMakeFiles/Proyecto.dir/ObjetosRisk/Territorio.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/ObjetosRisk/Territorio.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\ObjetosRisk\Territorio.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\ObjetosRisk
 
-build CMakeFiles/Proyecto.dir/Jugador.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Jugador.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\Jugador.cpp.obj.d
+build CMakeFiles/Proyecto.dir/ObjetosRisk/Jugador.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/ObjetosRisk/Jugador.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\ObjetosRisk\Jugador.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\ObjetosRisk
 
-build CMakeFiles/Proyecto.dir/Mapa.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Mapa.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\Mapa.cpp.obj.d
+build CMakeFiles/Proyecto.dir/ObjetosRisk/Mapa.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/ObjetosRisk/Mapa.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\ObjetosRisk\Mapa.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\ObjetosRisk
 
-build CMakeFiles/Proyecto.dir/Consola.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Consola.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\Consola.cpp.obj.d
+build CMakeFiles/Proyecto.dir/Consola/Consola.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Consola/Consola.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\Consola\Consola.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\Consola
 
-build CMakeFiles/Proyecto.dir/NavMenu.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/NavMenu.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\NavMenu.cpp.obj.d
+build CMakeFiles/Proyecto.dir/Consola/NavMenu.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Consola/NavMenu.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\Consola\NavMenu.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\Consola
 
-build CMakeFiles/Proyecto.dir/gameMaster.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/gameMaster.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\gameMaster.cpp.obj.d
+build CMakeFiles/Proyecto.dir/ObjetosRisk/gameMaster.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/ObjetosRisk/gameMaster.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\ObjetosRisk\gameMaster.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\ObjetosRisk
 
-build CMakeFiles/Proyecto.dir/GestorArchivos.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/GestorArchivos.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\GestorArchivos.cpp.obj.d
+build CMakeFiles/Proyecto.dir/Archivos/GestorArchivos.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Archivos/GestorArchivos.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\Archivos\GestorArchivos.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\Archivos
 
-build CMakeFiles/Proyecto.dir/comandos/ConfiguracionJuego.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/comandos/ConfiguracionJuego.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\comandos\ConfiguracionJuego.cpp.obj.d
+build CMakeFiles/Proyecto.dir/Comandos/ConfiguracionJuego.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Comandos/ConfiguracionJuego.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\Comandos\ConfiguracionJuego.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\comandos
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\Comandos
 
-build CMakeFiles/Proyecto.dir/comandos/utilidadesRisk.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/comandos/utilidadesRisk.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\comandos\utilidadesRisk.cpp.obj.d
+build CMakeFiles/Proyecto.dir/Comandos/utilidadesRisk.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Comandos/utilidadesRisk.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\Comandos\utilidadesRisk.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\comandos
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\Comandos
 
-build CMakeFiles/Proyecto.dir/comandos/Turno.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/comandos/Turno.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\comandos\Turno.cpp.obj.d
+build CMakeFiles/Proyecto.dir/Comandos/Turno.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Comandos/Turno.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\Comandos\Turno.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\comandos
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\Comandos
 
-build CMakeFiles/Proyecto.dir/Carta.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Carta.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\Carta.cpp.obj.d
+build CMakeFiles/Proyecto.dir/ObjetosRisk/Carta.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/ObjetosRisk/Carta.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\ObjetosRisk\Carta.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\ObjetosRisk
 
-build CMakeFiles/Proyecto.dir/Mazo.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/Mazo.cpp || cmake_object_order_depends_target_Proyecto
-  DEP_FILE = CMakeFiles\Proyecto.dir\Mazo.cpp.obj.d
+build CMakeFiles/Proyecto.dir/ObjetosRisk/Mazo.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Debug G$:/Otros$ ordenadores/Mi$ PC$ (1)/2303/Estructuras/Proyecto/ObjetosRisk/Mazo.cpp || cmake_object_order_depends_target_Proyecto
+  DEP_FILE = CMakeFiles\Proyecto.dir\ObjetosRisk\Mazo.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto.dir
-  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir
+  OBJECT_FILE_DIR = CMakeFiles\Proyecto.dir\ObjetosRisk
 
 
 # =============================================================================
@@ -135,7 +135,7 @@ build CMakeFiles/Proyecto.dir/Mazo.cpp.obj: CXX_COMPILER__Proyecto_unscanned_Deb
 #############################################
 # Link the executable Proyecto.exe
 
-build Proyecto.exe: CXX_EXECUTABLE_LINKER__Proyecto_Debug CMakeFiles/Proyecto.dir/main.cpp.obj CMakeFiles/Proyecto.dir/Territorio.cpp.obj CMakeFiles/Proyecto.dir/Jugador.cpp.obj CMakeFiles/Proyecto.dir/Mapa.cpp.obj CMakeFiles/Proyecto.dir/Consola.cpp.obj CMakeFiles/Proyecto.dir/NavMenu.cpp.obj CMakeFiles/Proyecto.dir/gameMaster.cpp.obj CMakeFiles/Proyecto.dir/GestorArchivos.cpp.obj CMakeFiles/Proyecto.dir/comandos/ConfiguracionJuego.cpp.obj CMakeFiles/Proyecto.dir/comandos/utilidadesRisk.cpp.obj CMakeFiles/Proyecto.dir/comandos/Turno.cpp.obj CMakeFiles/Proyecto.dir/Carta.cpp.obj CMakeFiles/Proyecto.dir/Mazo.cpp.obj
+build Proyecto.exe: CXX_EXECUTABLE_LINKER__Proyecto_Debug CMakeFiles/Proyecto.dir/main.cpp.obj CMakeFiles/Proyecto.dir/ObjetosRisk/Territorio.cpp.obj CMakeFiles/Proyecto.dir/ObjetosRisk/Jugador.cpp.obj CMakeFiles/Proyecto.dir/ObjetosRisk/Mapa.cpp.obj CMakeFiles/Proyecto.dir/Consola/Consola.cpp.obj CMakeFiles/Proyecto.dir/Consola/NavMenu.cpp.obj CMakeFiles/Proyecto.dir/ObjetosRisk/gameMaster.cpp.obj CMakeFiles/Proyecto.dir/Archivos/GestorArchivos.cpp.obj CMakeFiles/Proyecto.dir/Comandos/ConfiguracionJuego.cpp.obj CMakeFiles/Proyecto.dir/Comandos/utilidadesRisk.cpp.obj CMakeFiles/Proyecto.dir/Comandos/Turno.cpp.obj CMakeFiles/Proyecto.dir/ObjetosRisk/Carta.cpp.obj CMakeFiles/Proyecto.dir/ObjetosRisk/Mazo.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Proyecto.dir

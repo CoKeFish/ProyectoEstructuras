@@ -1,0 +1,10 @@
+//
+// Created by rrtc2 on 27/08/2023.
+//
+
+#ifndef PROYECTO_OBJETOSRISK_H
+#define PROYECTO_OBJETOSRISK_H
+
+
+
+#endif //PROYECTO_OBJETOSRISK_H
