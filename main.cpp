@@ -1,6 +1,6 @@
 
-#include "Territorio.h"
-#include "Consola.h"
+#include "ObjetosRisk/Territorio.h"
+#include "Consola/Consola.h"
 
 //using namespace std;
 

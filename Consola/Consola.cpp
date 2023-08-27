@@ -7,13 +7,13 @@
 #include "NavMenu.h"
 #include <limits>
 #include <string>
-#include "comandos/utilidadesRisk.h"
-#include "Comandos.h"
+#include "../comandos/utilidadesRisk.h"
+#include "../Comandos.h"
 
 
 
 void Consola::mostrarAyuda() {
-    /// Muestra la lista de comandos disponibles.
+    /// Muestra la lista de Comandos disponibles.
     separadorTextoConsola();
     std::cout << "                                                 " << BOLD << YELLOW << "COMANDOS DISPONIBLES:\n" << RESET;
     separadorTextoConsola();
@@ -30,7 +30,7 @@ void Consola::mostrarAyuda() {
 void Consola::mostrarAyuda(const std::string &comando) {
     /// Muestra la información de un comando específico.
 
-    auto it = comandos.find(comando);///Busca el comando en el mapa de comandos
+    auto it = comandos.find(comando);///Busca el comando en el mapa de Comandos
 
     if (it != comandos.end()) { ///Si el comando existe
 
@@ -53,7 +53,7 @@ void Consola::mostrarAyuda(const std::string &comando) {
     {
         ///Si el comando no existe imprime un mensaje de error y indica que se deben mostrar las instrucciones
         std::cout << BOLD << RED << "\tEl comando '" << comando
-                  << "' no es reconocido. Escribe 'ayuda' para ver una lista de comandos.\n" << RESET;
+                  << "' no es reconocido. Escribe 'ayuda' para ver una lista de Comandos.\n" << RESET;
         mostrarInstrucciones = true;
     }
     system("pause");
@@ -65,14 +65,14 @@ Consola::Consola() {
     ///indica que deben mostrarse las instrucciones
     mostrarInstrucciones = true;
 
-    ///Agrega los comandos al mapa de comandos
+    ///Agrega los Comandos al mapa de Comandos
     comandos["ayuda"] = {[this](const std::vector<std::string> &args) {
         if (!args.empty())
             this->mostrarAyuda(args[0]);
         else
             this->mostrarAyuda();
         return "";
-    }, {0, 1}, "Muestra la lista de comandos o la ayuda de un comando específico. "
+    }, {0, 1}, "Muestra la lista de Comandos o la ayuda de un comando específico. "
                "Uso: ayuda [comando]"
     };  // La función "ayuda" puede tener 0 o 1 argumento.
 
@@ -223,7 +223,7 @@ void Consola::iniciar() {
             argumentos.push_back(arg);
         }
 
-        auto it = comandos.find(comando);   ///Busca el comando en el mapa de comandos
+        auto it = comandos.find(comando);   ///Busca el comando en el mapa de Comandos
 
         if (it != comandos.end()) { ///Si el comando existe
 
