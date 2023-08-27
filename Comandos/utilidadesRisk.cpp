@@ -22,6 +22,8 @@ void mostrarInstruccionesConsola()
 void separadorTextoConsola()
 {
     std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << BOLD_OFF << RESET << std::endl;
+
+    std::cout << "\n$ " << "entradaComando" << "\n\n";
 }
 
 void ClearConsoleExceptFirstNLines(int n) {

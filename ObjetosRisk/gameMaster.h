@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "Territorio.h"
+#include "Jugador.h"
 #include "Mapa.h"
 #include "Mazo.h"
 
@@ -32,7 +33,7 @@ enum class FaseJuego {
 class gameMaster {
 private:
     /// Constructor privado para que no pueda ser llamado
-    gameMaster();
+    gameMaster() = default;
 
     /// Instancia estática
     static gameMaster* instance;
@@ -68,7 +69,7 @@ public:
     Mapa mapa;
 
     ///Mazo del juego
-    Mazo mazo;
+    Mazo mazo = Mazo(mapa.obtenerListaNombresTerritorios());
 
     ///Aumenta el numero de grupos de cartas intercambiadas
     void aumentarGrupoCartasIntercambiadas();

@@ -200,15 +200,12 @@ void Consola::iniciar() {
         std::cout << "\n$ ";
 
         // Comprobar el siguiente carácter en el búfer
-        if (std::cin.peek() == '\n') {
-            std::cin.clear();
-        }
+
         getline(std::cin, entradaComando);
         system("cls");
 
         std::cout << riskLogo;
         separadorTextoConsola();
-
 
         std::istringstream stream(entradaComando);
         std::string comando;

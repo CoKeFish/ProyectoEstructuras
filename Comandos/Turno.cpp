@@ -4,7 +4,6 @@
 
 #include "Turno.h"
 #include "../ObjetosRisk/gameMaster.h"
-#include "../ObjetosRisk/Jugador.h"
 
 std::string Turno::iniciarTurno(const std::string& jugador) {
 
