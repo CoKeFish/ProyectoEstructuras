@@ -1,3 +1,0 @@
-G:/Otros ordenadores/Mi PC (1)/2303/Estructuras/Proyecto/cmake-build-release/CMakeFiles/Proyecto.dir
-G:/Otros ordenadores/Mi PC (1)/2303/Estructuras/Proyecto/cmake-build-release/CMakeFiles/edit_cache.dir
-G:/Otros ordenadores/Mi PC (1)/2303/Estructuras/Proyecto/cmake-build-release/CMakeFiles/rebuild_cache.dir
