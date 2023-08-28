@@ -122,7 +122,7 @@ public:
      * @brief Intercambia cartas por ejercitos
      * @param jugador Jugador que intercambia las cartas
      */
-    static bool verificarCanje(const std::map<TipoEjercito, int> &cuentaCartas);
+    static bool verificarCanje(std::map<TipoEjercito, int> &cuentaCartas);
 
     /**
      * @brief Obtiene las cartas que el jugador puede canjear
@@ -138,7 +138,7 @@ public:
  * @param cuentaCartas Mapa con el conteo de cartas por tipo
  * @return True si el jugador puede realizar un canje, false en caso contrario
  */
-    static bool puedeCanjear(const std::map<TipoEjercito, int> &cuentaCartas);
+    static bool puedeCanjear(std::map<TipoEjercito, int> &cuentaCartas);
 };
 
 

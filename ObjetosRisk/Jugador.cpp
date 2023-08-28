@@ -183,11 +183,11 @@ std::list<Carta *> Jugador::obtenerCartasParaCanjear(const std::map<TipoEjercito
     return cartas;
 }
 
-bool Jugador::puedeCanjear(const std::map<TipoEjercito, int> &cuentaCartas) {
-    int infanteria = cuentaCartas.at(TipoEjercito::INFANTERIA);
-    int caballeria = cuentaCartas.at(TipoEjercito::CABALLERIA);
-    int artilleria = cuentaCartas.at(TipoEjercito::ARTILLERIA);
-    int comodin = cuentaCartas.at(TipoEjercito::COMODIN);
+bool Jugador::puedeCanjear(std::map<TipoEjercito, int> &cuentaCartas) {
+    int infanteria = cuentaCartas[TipoEjercito::INFANTERIA];
+    int caballeria = cuentaCartas[TipoEjercito::CABALLERIA];
+    int artilleria = cuentaCartas[TipoEjercito::ARTILLERIA];
+    int comodin = cuentaCartas[TipoEjercito::COMODIN];
 
     return
             (infanteria >= 3) ||
@@ -203,7 +203,7 @@ bool Jugador::puedeCanjear(const std::map<TipoEjercito, int> &cuentaCartas) {
 }
 
 
-bool Jugador::verificarCanje(const std::map<TipoEjercito, int> &cuentaCartas) {
+bool Jugador::verificarCanje(std::map<TipoEjercito, int> &cuentaCartas) {
 
     if(puedeCanjear(cuentaCartas)) {
         return true;

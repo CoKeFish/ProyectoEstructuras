@@ -30,6 +30,7 @@ std::string Turno::iniciarTurno(const std::string& jugador) {
     ///Permite al jugador realizar las acciones de su turno
     obtenerNuevasUnidades(it);
 
+    ///TODO: Implementar ataque y fortificacion
     atacar(it);
 
     fortificar(it);
@@ -118,7 +119,8 @@ void Turno::obtenerNuevasUnidades(std::vector<Jugador>::iterator iterator) {
 
 }
 
-void Turno::atacar(std::vector<Jugador>::iterator iterator) {
+void Turno::atacar(std::vector<Jugador>::iterator iterator)
+{
 
 }
 
