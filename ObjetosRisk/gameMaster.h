@@ -10,6 +10,7 @@
 #include "Territorio.h"
 #include "Mapa.h"
 #include "Mazo.h"
+#include "Jugador.h"
 
 class Jugador;
 class Mazo;
@@ -32,7 +33,7 @@ enum class FaseJuego {
 class gameMaster {
 private:
     /// Constructor privado para que no pueda ser llamado
-    gameMaster();
+    gameMaster() = default;
 
     /// Instancia estática
     static gameMaster* instance;

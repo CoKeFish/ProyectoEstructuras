@@ -5,7 +5,6 @@
 #include "ConfiguracionJuego.h"
 #include "../ObjetosRisk/gameMaster.h"
 #include "utilidadesRisk.h"
-#include "../ObjetosRisk/Jugador.h"
 
 
 std::string ConfiguracionJuego::inicializar()  {

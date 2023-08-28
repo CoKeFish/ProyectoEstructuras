@@ -3,7 +3,6 @@
 //
 
 #include "gameMaster.h"
-#include "Jugador.h"
 
 
 /// Inicializa la instancia
@@ -142,8 +141,4 @@ void gameMaster::devolverCartasAlMazo(std::list<Carta *> &cartas, Jugador *jugad
     {
         jugador->mazo.cartas.remove(*item);
     }
-}
-
-gameMaster::gameMaster() {
-    mazo = Mazo(mapa.obtenerListaNombresTerritorios());
 }

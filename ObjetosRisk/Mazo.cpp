@@ -7,7 +7,7 @@
 #include "gameMaster.h"
 
 
-Mazo::Mazo(const std::list<std::string>& territorios)
+void Mazo::inicializar(const std::list<std::string> &territorios)
 {
     for (const auto& nombre : territorios) {
         // Asumiendo que cada territorio tiene una carta de cada tipo.

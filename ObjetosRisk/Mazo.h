@@ -26,7 +26,7 @@ public:
      * @brief Constructor de la clase Mazo
      * @param territorios Lista de nombres de territorios del mapa
      */
-    explicit Mazo(const std::list<std::string>& territorios);
+    void inicializar(const std::list<std::string>& territorios);
 
 
     /**
