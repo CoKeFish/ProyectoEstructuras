@@ -80,6 +80,7 @@ Mapa::Mapa() {
         {"Perú", Territorio("Perú", Continente::SUDAMERICA)},
         {"Venezuela", Territorio("Venezuela", Continente::SUDAMERICA)}
     };
+    ///TODO: Produce error de segmentación, revisar.
 
     // ÁFRICA
 
@@ -117,7 +118,7 @@ Mapa::Mapa() {
     territorios.at("Afghanistán").agregarAdyacente(&territorios.at("Ucrania"));
     territorios.at("Afghanistán").agregarAdyacente(&territorios.at("China"));
     territorios.at("Afghanistán").agregarAdyacente(&territorios.at("India"));
-    territorios.at("Afghanistán").agregarAdyacente(&territorios.at("Oriente Medio"));
+    territorios.at("Afghanistán").agregarAdyacente(&territorios.at("Medio Oriente"));
     territorios.at("Afghanistán").agregarAdyacente(&territorios.at("Ural"));
 
     territorios.at("China").agregarAdyacente(&territorios.at("Afghanistán"));
@@ -129,7 +130,7 @@ Mapa::Mapa() {
 
     territorios.at("India").agregarAdyacente(&territorios.at("Afghanistán"));
     territorios.at("India").agregarAdyacente(&territorios.at("China"));
-    territorios.at("India").agregarAdyacente(&territorios.at("Oriente Medio"));
+    territorios.at("India").agregarAdyacente(&territorios.at("Medio Oriente"));
     territorios.at("India").agregarAdyacente(&territorios.at("Siam"));
 
     territorios.at("Irkutsk").agregarAdyacente(&territorios.at("Kamchatka"));
@@ -149,7 +150,7 @@ Mapa::Mapa() {
     territorios.at("Medio Oriente").agregarAdyacente(&territorios.at("Egipto"));
     territorios.at("Medio Oriente").agregarAdyacente(&territorios.at("India"));
     territorios.at("Medio Oriente").agregarAdyacente(&territorios.at("Ucrania"));
-    territorios.at("Medio Oriente").agregarAdyacente(&territorios.at("Afganistán"));
+    territorios.at("Medio Oriente").agregarAdyacente(&territorios.at("Afghanistán"));
     territorios.at("Medio Oriente").agregarAdyacente(&territorios.at("Europa del Sur"));
 
     territorios.at("Mongolia").agregarAdyacente(&territorios.at("China"));
@@ -215,7 +216,7 @@ Mapa::Mapa() {
     territorios.at("Ucrania").agregarAdyacente(&territorios.at("Europa del Norte"));
     territorios.at("Ucrania").agregarAdyacente(&territorios.at("Europa del Sur"));
     territorios.at("Ucrania").agregarAdyacente(&territorios.at("Medio Oriente"));
-    territorios.at("Ucrania").agregarAdyacente(&territorios.at("Afganistán"));
+    territorios.at("Ucrania").agregarAdyacente(&territorios.at("Afghanistán"));
     territorios.at("Ucrania").agregarAdyacente(&territorios.at("Ural"));
 
     // NORTEAMÉRICA
@@ -298,9 +299,6 @@ Mapa::Mapa() {
     territorios.at("Venezuela").agregarAdyacente(&territorios.at("Brasil"));
     territorios.at("Venezuela").agregarAdyacente(&territorios.at("Perú"));
     territorios.at("Venezuela").agregarAdyacente(&territorios.at("América Central"));
-
-
-
 
     ///Recorremos mapa de territorios y guardamos los nombres en una lista.
     for (auto & territorio : territorios) {

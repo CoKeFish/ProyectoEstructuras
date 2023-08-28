@@ -121,9 +121,27 @@ void Turno::obtenerNuevasUnidades(std::vector<Jugador>::iterator iterator) {
 
 void Turno::atacar(std::vector<Jugador>::iterator iterator)
 {
+    ///El jugador debe escoger uno de los territorios que tiene ocupados para iniciar
+    ///el ataque, y sólo podrá atacar territorios vecinos (pueden ser también aquellos conectados por líneas).
+
+    iterator->menuTerritorios.getSelection(false);
+
+
+    ///El resultado del ataque se define a través de los dados: el jugador atacante lanza 3 dados de color rojo,
+    /// mientras que el jugador que defiende lanza 2 dados blancos
+
+
+    ///Los dados de uno y otro se emparejan y se comparan para determinar cuántas unidades de ejército pierde o gana cada
+    ///uno: si el del atacante es mayor que el del defensor, el defensor pierde una unidad de ejército del territorio
+    ///atacado; si el del defensor es mayor al del atacante, el atacante pierde una unidad de ejército del territorio
+    ///desde el que se ataca; si hay empate, el defensor es quien gana
+
+    ///El proceso se repite mientras el atacante lo decida.
 
 }
 
 void Turno::fortificar(std::vector<Jugador>::iterator iterator) {
 
+    ///Si en el ataque el territorio queda vacío (sin piezas del ejército del defensor), el atacante puede reclamarlo
+    /// moviendo algunas de sus piezas de ejército allí.
 }
