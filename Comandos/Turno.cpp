@@ -131,12 +131,41 @@ void Turno::atacar(std::vector<Jugador>::iterator iterator)
 
     auto it = iterator->menuTerritorios.getSelection(false);
 
+    ///Obtenemos el territorio seleccionado
+    auto territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(it->name);
 
+    /// Realizamos un menu con los territorios adyacentes al territorio seleccionado
+    std::vector<MenuItem> territoriosAdyacentes;
+    for(auto &item : territorio->obtenerAdyacentes())
+    {
+        territoriosAdyacentes.emplace_back(item->obtenerNombre(), item);
+    }
 
+    NavMenu menuTerritoriosAdyacentes = NavMenu(territoriosAdyacentes);
+
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "Seleccione un territorio al cual atacar:" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+
+    auto it2 = menuTerritoriosAdyacentes.getSelection(false);
 
 
     ///El resultado del ataque se define a través de los dados: el jugador atacante lanza 3 dados de color rojo,
     /// mientras que el jugador que defiende lanza 2 dados blancos
+
+    ///Se eligen 3 numeros aleatorios entre 1 y 6 para el atacante
+    std::vector<int> dadosAtacante;
+    for (int i = 0; i < 3; ++i) {
+        dadosAtacante.push_back(rand() % 6 + 1);
+    }
+
+    cout << "Dados atacante: ";
+    for (int i = 0; i < 3; ++i) {
+        cout << dadosAtacante[i] << " ";
+    }
+
+    /// pause
+    system("pause");
 
 
     ///Los dados de uno y otro se emparejan y se comparan para determinar cuántas unidades de ejército pierde o gana cada
