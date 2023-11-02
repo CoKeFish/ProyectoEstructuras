@@ -124,7 +124,15 @@ void Turno::atacar(std::vector<Jugador>::iterator iterator)
     ///El jugador debe escoger uno de los territorios que tiene ocupados para iniciar
     ///el ataque, y sólo podrá atacar territorios vecinos (pueden ser también aquellos conectados por líneas).
 
-    iterator->menuTerritorios.getSelection(false);
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "Seleccione un territorio desde el cual atacar:" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+
+
+    auto it = iterator->menuTerritorios.getSelection(false);
+
+
+
 
 
     ///El resultado del ataque se define a través de los dados: el jugador atacante lanza 3 dados de color rojo,

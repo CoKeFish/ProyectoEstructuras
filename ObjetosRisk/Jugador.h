@@ -45,6 +45,9 @@ public:
     /// Menu de territorios del jugador, se ira actualizando a medida que el jugador elija o conquiste territorios.
     NavMenu menuTerritorios = menuRiskPlayerDefault;
 
+    /// Menu de territorios adyacentes a los territorios del jugador, se ira actualizando a medida que el jugador elija o conquiste territorios.
+    NavMenu menuTerritoriosAdyacentes = menuRiskPlayerDefault;
+
 
     /**
      * @brief Calcula el número de ejércitos iniciales que le corresponden a cada jugador.
@@ -73,6 +76,12 @@ public:
      * @param t Puntero al territorio a agregar.
      */
     void agregarTerritorio(Territorio* t);
+
+    /**
+     * @brief Agrega los territorios adyacentes a los territorios del jugador.
+     * @param t Puntero al territorio a agregar.
+     */
+    void agregarTerritorioAdyacente(Territorio* t);
 
     /**
      * @brief Elimina un territorio de la lista de territorios del jugador.

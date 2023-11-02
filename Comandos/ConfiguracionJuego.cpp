@@ -15,7 +15,7 @@ std::string ConfiguracionJuego::inicializar()  {
     }
 
 
-    /*mensajeNJugadores();
+    mensajeNJugadores();
 
     gameMaster::getInstance()->setnJugadores(MenuJugadores.getSelection(false)->name);
 
@@ -23,9 +23,9 @@ std::string ConfiguracionJuego::inicializar()  {
 
     ingresarTerritoriosAJugadores();
 
-    asignarEjercitosJugadores();*/
+    asignarEjercitosJugadores();
 
-    saltarConfiguracion();
+    //saltarConfiguracion();
     gameMaster::getInstance()->faseJuego = FaseJuego::JuegoInicializado;
     gameMaster::getInstance()->setJugadorActual( &gameMaster::getInstance()->jugadores[0]);
 

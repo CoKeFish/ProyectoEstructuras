@@ -210,3 +210,21 @@ bool Jugador::verificarCanje(std::map<TipoEjercito, int> &cuentaCartas) {
     }
     return false;
 }
+///TODO: Terminar de implementar, segir las instrucciones del enunciado
+void Jugador::agregarTerritorioAdyacente(Territorio *t) {
+
+    /// Recorremos la lista de territorios adyacentes del territorio que se está agregando
+
+    /// Buscamos el continente al que pertenece el territorio y lo agregamos al menu de territorios del jugador.
+    /// Nos aseguramos de que no se repita el nombre del territorio adyaente que se está agregando
+    for(auto &continente : menuTerritoriosAdyacentes.menu)
+    {
+        if(continente.name == continentes[t->obtenerContinente()])
+        {
+            continente.subItems.emplace_back(t->obtenerNombre());
+            return;
+        }
+    }
+    throw std::runtime_error( "No se encontró el continente al que pertenece el territorio, esto no debería pasar.");
+
+}
