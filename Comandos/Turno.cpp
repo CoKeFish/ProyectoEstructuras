@@ -31,6 +31,9 @@ std::string Turno::iniciarTurno(const std::string& jugador) {
     obtenerNuevasUnidades(it);
 
     ///TODO: Implementar ataque y fortificacion
+    ///TODO: Implementar no es posible atacar si el numero de ejercitos es igual al numero de territorios
+    ///TODO: Solo deberia ser posible que los territorios adyacentes a ataques sean enemigos, hay que deshabilitar
+    /// los territorios propios
     atacar(it);
 
     fortificar(it);
@@ -121,22 +124,54 @@ void Turno::obtenerNuevasUnidades(std::vector<Jugador>::iterator iterator) {
 
 void Turno::atacar(std::vector<Jugador>::iterator iterator)
 {
-    ///El jugador debe escoger uno de los territorios que tiene ocupados para iniciar
-    ///el ataque, y sólo podrá atacar territorios vecinos (pueden ser también aquellos conectados por líneas).
 
+    ///Preguntar si desea atacar
     std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
-    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "Seleccione un territorio desde el cual atacar:" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "¿Desea atacar?" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
     std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
 
+    auto atacar = MenuSiNo.getSelection(false)->name;
+    if(atacar == "No")
+        return;
+    ///Comprobamos que la opcion seleccionada sea "Si"
+    if(atacar != "Si")
+    {
+        ///Lanzamos una excepcion
+        throw std::runtime_error("Opcion invalida");
+    }
 
-    auto it = iterator->menuTerritorios.getSelection(false);
+    Territorio* territorioAtacante;
 
-    ///Obtenemos el territorio seleccionado
-    auto territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(it->name);
+    bool mensajeError = false;
 
-    /// Realizamos un menu con los territorios adyacentes al territorio seleccionado
+    do {
+        ///El jugador debe escoger uno de los territorios que tiene ocupados para iniciar
+        ///el ataque, y sólo podrá atacar territorios vecinos (pueden ser también aquellos conectados por líneas).
+
+        std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+        std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "Seleccione un territorioAtacante desde el cual atacar:" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+        if(mensajeError)
+        {
+            std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "El territorioAtacante seleccionado no tiene suficientes ejercitos para atacar" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+        }
+        std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+
+
+        auto it = iterator->menuTerritorios.getSelection(false);
+
+        ///Obtenemos el territorioAtacante seleccionado
+        territorioAtacante = gameMaster::getInstance()->mapa.obtenerTerritorio(it->name);
+        mensajeError = true;
+
+        ///Comprobamos que el territorioAtacante seleccionado tenga al menos 2 ejercitos
+    } while (territorioAtacante->obtenerNumEjercitos() < 2);
+
+
+
+
+    /// Realizamos un menu con los territorios adyacentes al territorioAtacante seleccionado
     std::vector<MenuItem> territoriosAdyacentes;
-    for(auto &item : territorio->obtenerAdyacentes())
+    for(auto &item : territorioAtacante->obtenerAdyacentes())
     {
         territoriosAdyacentes.emplace_back(item->obtenerNombre(), item);
     }
@@ -144,41 +179,231 @@ void Turno::atacar(std::vector<Jugador>::iterator iterator)
     NavMenu menuTerritoriosAdyacentes = NavMenu(territoriosAdyacentes);
 
     std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
-    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "Seleccione un territorio al cual atacar:" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "Seleccione un territorioAtacante al cual atacar:" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
     std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
 
     auto it2 = menuTerritoriosAdyacentes.getSelection(false);
 
+    bool seguirAtacando = true;
 
-    ///El resultado del ataque se define a través de los dados: el jugador atacante lanza 3 dados de color rojo,
-    /// mientras que el jugador que defiende lanza 2 dados blancos
+    ///Obtenemos el territorioAtacante seleccionado
+    auto territorioDefensor = gameMaster::getInstance()->mapa.obtenerTerritorio(it2->name);
 
-    ///Se eligen 3 numeros aleatorios entre 1 y 6 para el atacante
-    std::vector<int> dadosAtacante;
-    for (int i = 0; i < 3; ++i) {
-        dadosAtacante.push_back(rand() % 6 + 1);
-    }
+    do {
+        ///Obtenemos el numero de ejercitos del territorioAtacante atacante
+        int ejercitosAtacante = territorioAtacante->obtenerNumEjercitos();
 
-    cout << "Dados atacante: ";
-    for (int i = 0; i < 3; ++i) {
-        cout << dadosAtacante[i] << " ";
-    }
-
-    /// pause
-    system("pause");
+        ///Obtenemos el numero de ejercitos del territorioAtacante defensor
+        int ejercitosDefensor = territorioDefensor->obtenerNumEjercitos();
 
 
-    ///Los dados de uno y otro se emparejan y se comparan para determinar cuántas unidades de ejército pierde o gana cada
-    ///uno: si el del atacante es mayor que el del defensor, el defensor pierde una unidad de ejército del territorio
-    ///atacado; si el del defensor es mayor al del atacante, el atacante pierde una unidad de ejército del territorio
-    ///desde el que se ataca; si hay empate, el defensor es quien gana
+        ///El resultado del ataque se define a través de los dados: el jugador atacante lanza 3 dados de color rojo,
+        /// mientras que el jugador que defiende lanza 2 dados blancos
 
-    ///El proceso se repite mientras el atacante lo decida.
+        int numeroDadosAtacante;
+        int numeroDadosDefensor;
+
+        if(ejercitosAtacante >= 4)
+        {
+            numeroDadosAtacante = 3;
+        }
+        else if(ejercitosAtacante == 3)
+        {
+            numeroDadosAtacante = 2;
+        }
+        else if(ejercitosAtacante == 2)
+        {
+            numeroDadosAtacante = 1;
+        }
+        else
+        {
+            throw std::runtime_error("El territorioAtacante atacante no tiene suficientes ejercitos para atacar");
+        }
+
+        if(ejercitosDefensor >= 2)
+        {
+            numeroDadosDefensor = 2;
+        }
+        else if(ejercitosDefensor == 1)
+        {
+            numeroDadosDefensor = 1;
+        }
+        else
+        {
+            throw std::runtime_error("El territorioAtacante defensor no tiene suficientes ejercitos para defender");
+        }
+
+        ///Se eligen numeros aleatorios entre 1 y 6 para el atacante
+        std::vector<int> dadosAtacante;
+        for (int i = 0; i < numeroDadosAtacante; ++i) {
+            dadosAtacante.push_back(rand() % 6 + 1);
+        }
+
+        ///Se eligen numeros aleatorios entre 1 y 6 para el defensor
+        std::vector<int> dadosDefensor;
+        for (int i = 0; i < numeroDadosDefensor; ++i) {
+            dadosDefensor.push_back(rand() % 6 + 1);
+        }
+
+        ///Se ordenan los dados de mayor a menor
+        std::sort(dadosAtacante.begin(), dadosAtacante.end(), std::greater<>());
+        std::sort(dadosDefensor.begin(), dadosDefensor.end(), std::greater<>());
+
+
+        ///Los dados de uno y otro se emparejan y se comparan para determinar cuántas unidades de ejército pierde o gana cada
+        ///uno: si el del atacante es mayor que el del defensor, el defensor pierde una unidad de ejército del territorioAtacante
+        ///atacado; si el del defensor es mayor al del atacante, el atacante pierde una unidad de ejército del territorioAtacante
+        ///desde el que se ataca; si hay empate, el defensor es quien gana
+
+        ///Elegir el menor cantidad de dados entre el atacante y el defensor
+        int menorCantidadDados = std::min(numeroDadosAtacante, numeroDadosDefensor);
+
+        for (int i = 0; i < menorCantidadDados; ++i) {
+            if(dadosAtacante[i] > dadosDefensor[i])
+            {
+                territorioDefensor->modificarEjercitos(-1);
+            }
+            else
+            {
+                territorioAtacante->modificarEjercitos(-1);
+            }
+        }
+
+
+        ///Comprobar condiciones de victoria sobre el territorio atacado
+        if(territorioDefensor->obtenerNumEjercitos() == 0) {
+
+            ///Obtenemos jugador defensor
+            Jugador* jugadorDefensor = territorioDefensor->obtenerJugador();
+
+
+            ///El atacante puede reclamar el territorioAtacante atacado moviendo algunas de sus piezas de ejército allí.
+            territorioDefensor->asignarJugador(&*iterator);
+            territorioDefensor->modificarEjercitos(1);
+            territorioAtacante->modificarEjercitos(-1);
+
+            ///Damos una carta al jugador atacante
+            gameMaster::getInstance()->darCartaAJugador(&*iterator);
+
+            ///Verificar condiciones de victoria sobre un jugador, es decir si el defendido se queda sin territorios
+            if(jugadorDefensor->obtenerTerritorios().empty())
+            {
+                ///Eliminamos al jugador de la lista de jugadores
+                gameMaster::getInstance()->jugadores.erase(std::find_if(gameMaster::getInstance()->jugadores.begin(), gameMaster::getInstance()->jugadores.end(),
+                                                                       [jugadorDefensor](const Jugador &j) {
+                                                                           return j.obtenerNombre() == jugadorDefensor->obtenerNombre();
+                                                                       }));
+            }
+
+
+        }
+
+        ///Obligar al jugador a dejar de atacar si no tiene mas ejercitos para atacar
+        ///Verificamos si puede seguir atacando
+        if(territorioAtacante->obtenerNumEjercitos() < 2)
+        {
+            seguirAtacando = false;
+            continue;
+        }
+
+
+        ///Preguntamos si desea seguir atacando
+        std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+        std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "¿Desea seguir atacando?" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+        std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+
+        auto atacar = MenuSiNo.getSelection(false)->name;
+        if(atacar == "No")
+            seguirAtacando = false;
+
+        ///El proceso se repite mientras el atacante lo decida y sea capaz de atacar
+    } while (seguirAtacando);
+
+
+
 
 }
 
 void Turno::fortificar(std::vector<Jugador>::iterator iterator) {
 
-    ///Si en el ataque el territorio queda vacío (sin piezas del ejército del defensor), el atacante puede reclamarlo
-    /// moviendo algunas de sus piezas de ejército allí.
+    ///Preguntamos si desea fortificar
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "¿Desea fortificar?" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+
+    auto fortificar = MenuSiNo.getSelection(false)->name;
+    if(fortificar == "No")
+        return;
+    ///Comprobamos que la opcion seleccionada sea "Si"
+    if(fortificar != "Si")
+    {
+        ///Lanzamos una excepcion
+        throw std::runtime_error("Opcion invalida");
+    }
+
+    ///El jugador debe escoger uno de los territorios que tiene ocupados para iniciar
+
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "Seleccione un territorio  el cual desea fortificar:" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+
+    ///Obtenemos una lista de los territorios del jugador que tengan mas de 1 ejercito
+    std::vector<MenuItem> territorios;
+    for(auto &item : iterator->obtenerTerritorios())
+    {
+        if(item->obtenerNumEjercitos() > 1)
+        {
+            territorios.emplace_back(item->obtenerNombre(), item);
+        }
+    }
+
+    NavMenu menuTerritorios = NavMenu(territorios);
+
+    auto it = menuTerritorios.getSelection(false);
+
+    ///Obtenemos el territorio seleccionado
+    auto territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(it->name);
+
+    ///Obtenemos una lista de los territorios del jugador que esten conectados con otros territorios propios
+    std::vector<MenuItem> territoriosAdyacentes;
+    for(auto &item : territorio->obtenerAdyacentes())
+    {
+        if(item->obtenerJugador() == &*iterator)
+        {
+            territoriosAdyacentes.emplace_back(item->obtenerNombre(), item);
+        }
+    }
+
+    NavMenu menuTerritoriosAdyacentes = NavMenu(territoriosAdyacentes);
+
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "Seleccione un territorio  al cual desea fortificar:" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+
+    auto it2 = menuTerritoriosAdyacentes.getSelection(false);
+
+    ///Obtenemos el territorio seleccionado
+    auto territorioAdyacente = gameMaster::getInstance()->mapa.obtenerTerritorio(it2->name);
+
+    ///Preguntamos cuantos ejercitos desea mover
+    std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "¿Cuantos ejercitos desea mover?" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+    std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+
+    int ejercitos;
+    std::cin >> ejercitos;
+
+    ///Comprobamos que el numero de ejercitos sea valido
+    if(ejercitos < 1 || ejercitos > territorio->obtenerNumEjercitos())
+    {
+        throw std::runtime_error("Numero de ejercitos invalido");
+    }
+
+    ///Movemos los ejercitos
+    territorio->modificarEjercitos(-ejercitos);
+    territorioAdyacente->modificarEjercitos(ejercitos);
+
+
+    /// TODO: Verificar una region de adyasencia, no solo los inmediatamente adyacentes
+
 }

@@ -55,6 +55,12 @@ inline NavMenu MenuJugadores = NavMenu({
                                         MenuItem("6 jugadores")
                                 });
 
+//Menu si o no
+inline NavMenu MenuSiNo = NavMenu({
+                                       MenuItem("Si"),
+                                       MenuItem("No")
+                               });
+
 
 
 inline NavMenu menuColores = NavMenu({

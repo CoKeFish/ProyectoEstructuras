@@ -92,6 +92,8 @@ public:
      */
     int getnJugadores() const;
 
+
+
     /**
      * @brief Calcula el numero de ejercitos por asignar, el valor se calcula sumando el numero de ejercitos de cada jugador
      * se usa para saber cuando se han asignado todos los ejercitos al inicio del juego, es decir cuando los jugadores
