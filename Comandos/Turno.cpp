@@ -320,8 +320,39 @@ void Turno::atacar(std::vector<Jugador>::iterator iterator)
     } while (seguirAtacando);
 
 
+    /// Verificar si el jugador gano la partida
+    if(gameMaster::getInstance()->jugadores.size() == 1)
+    {
+        gameMaster::getInstance()->faseJuego = FaseJuego::JuegoTerminado;
+        std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+        std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "El jugador " << gameMaster::getInstance()->jugadores[0].obtenerNombre() << " ha ganado la partida" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
+        std::cout << BOLD << "+" << BOLD_OFF << "----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
+    }
+
+}
 
 
+void DFS(Territorio* territorio, std::vector<Territorio*>& visitados, Jugador* jugador) {
+    // Marca el territorio como visitado
+    visitados.push_back(territorio);
+
+    // Recorre todos los territorios adyacentes
+    for (Territorio* adyacente : territorio->obtenerAdyacentes()) {
+        // Verifica si el territorio adyacente no ha sido visitado y pertenece al mismo jugador
+        if (std::find(visitados.begin(), visitados.end(), adyacente) == visitados.end() &&
+            adyacente->obtenerJugador() == jugador) {
+            // Continua la búsqueda desde el territorio adyacente
+            DFS(adyacente, visitados, jugador);
+        }
+    }
+}
+
+
+std::vector<Territorio*> obtenerTerritoriosParaFortificar(Territorio* territorio) {
+    std::vector<Territorio*> result;
+    // Llama a DFS para encontrar todos los territorios conectados
+    DFS(territorio, result, territorio->obtenerJugador());
+    return result;
 }
 
 void Turno::fortificar(std::vector<Jugador>::iterator iterator) {
@@ -361,20 +392,18 @@ void Turno::fortificar(std::vector<Jugador>::iterator iterator) {
 
     auto it = menuTerritorios.getSelection(false);
 
-    ///Obtenemos el territorio seleccionado
+    /// Obtener el territorio seleccionado
     auto territorio = gameMaster::getInstance()->mapa.obtenerTerritorio(it->name);
+    /// Obtener la lista de territorios conectados
+    auto territoriosParaFortificar = obtenerTerritoriosParaFortificar(territorio);
 
-    ///Obtenemos una lista de los territorios del jugador que esten conectados con otros territorios propios
-    std::vector<MenuItem> territoriosAdyacentes;
-    for(auto &item : territorio->obtenerAdyacentes())
-    {
-        if(item->obtenerJugador() == &*iterator)
-        {
-            territoriosAdyacentes.emplace_back(item->obtenerNombre(), item);
-        }
+    /// Convierte los territorios a MenuItem si es necesario
+    std::vector<MenuItem> menuItems;
+    for (auto* t : territoriosParaFortificar) {
+        menuItems.emplace_back(t->obtenerNombre(), t);
     }
 
-    NavMenu menuTerritoriosAdyacentes = NavMenu(territoriosAdyacentes);
+    NavMenu menuTerritoriosAdyacentes = NavMenu(menuItems);
 
     std::cout << BOLD << "+----------------------------------------------------------------------------------------------------------------------+" << RESET << std::endl;
     std::cout << BOLD << "|" << RESET << "                                 " << BOLD << "Seleccione un territorio  al cual desea fortificar:" << RESET << "                                       " << BOLD << "|" << RESET << std::endl;
@@ -402,8 +431,5 @@ void Turno::fortificar(std::vector<Jugador>::iterator iterator) {
     ///Movemos los ejercitos
     territorio->modificarEjercitos(-ejercitos);
     territorioAdyacente->modificarEjercitos(ejercitos);
-
-
-    /// TODO: Verificar una region de adyasencia, no solo los inmediatamente adyacentes
 
 }
